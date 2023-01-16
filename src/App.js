@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { useContext } from "react";
+import "./App.css";
+import ModeContext from "./contexts/ModeContext";
+import Navbar from "./layouts/Navbar";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { darkMode } = useContext(ModeContext);
+
+	const themeLight = createTheme({
+		palette: {
+			mode: "light",
+			primary: {
+				main: "rgb(24, 33, 64)",
+				light: "rgb(24, 33, 64)",
+				dark: "rgb(24, 33, 64)",
+			},
+			secondary: {
+				main: "#f50057",
+			},
+		},
+		typography: {
+			fontFamily: "Inter, sans-serif",
+			button: {
+				fontWeight: "600",
+			},
+		},
+	});
+
+	const themeDark = createTheme({
+		palette: {
+			mode: "dark",
+			primary: {
+				main: "rgb(24, 33, 64)",
+				light: "rgb(24, 33, 64)",
+				dark: "rgb(24, 33, 64)",
+			},
+			secondary: {
+				main: "#f50057",
+			},
+			background: {
+				default: "#121218",
+				paper: "#1d1d25",
+			},
+		},
+		typography: {
+			fontFamily: "Inter, sans-serif",
+			button: {
+				fontWeight: "600",
+			},
+		},
+	});
+
+	return (
+		<ThemeProvider theme={darkMode ? themeDark : themeLight}>
+			<CssBaseline />
+			<Navbar />
+		</ThemeProvider>
+	);
 }
 
 export default App;
