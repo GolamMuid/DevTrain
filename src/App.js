@@ -1,8 +1,11 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { useContext } from "react";
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import ModeContext from "./contexts/ModeContext";
-import Navbar from "./layouts/Navbar";
+import Container from "./layouts/container/Container";
+import Navbar from "./layouts/navbar/Navbar";
+import router from "./routes/Routes";
 
 function App() {
 	const { darkMode } = useContext(ModeContext);
@@ -16,7 +19,7 @@ function App() {
 				dark: "rgb(24, 33, 64)",
 			},
 			secondary: {
-				main: "#f50057",
+				main: "#ff4e26",
 			},
 		},
 		typography: {
@@ -36,15 +39,15 @@ function App() {
 				dark: "rgb(24, 33, 64)",
 			},
 			secondary: {
-				main: "#f50057",
+				main: "#ff4e26",
 			},
 			background: {
-				default: "#121218",
+				default: "#22253C",
 				paper: "#1d1d25",
 			},
 		},
 		typography: {
-			fontFamily: "Inter, sans-serif",
+			fontFamily: "Inter, Sofia Sans Semi Condensed, sans-serif",
 			button: {
 				fontWeight: "600",
 			},
@@ -54,7 +57,7 @@ function App() {
 	return (
 		<ThemeProvider theme={darkMode ? themeDark : themeLight}>
 			<CssBaseline />
-			<Navbar />
+			<RouterProvider router={router} />
 		</ThemeProvider>
 	);
 }
