@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -59,29 +59,46 @@ function Navbar() {
 
 	const { handleDarkMode, darkMode } = useContext(ModeContext);
 
+	const [scrolled, setScrolled] = useState(false);
+
+	window.addEventListener("scroll", () => {
+		if (window.scrollY > 80) {
+			setScrolled(true);
+		} else {
+			setScrolled(false);
+		}
+	});
+
 	return (
-		<Box sx={{ backgroundColor: "primary", flexGrow: 1 }}>
-			<AppBar position="static" enableColorOnDark>
-				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						News
-					</Typography>
-					<Box display="flex" gap="20px" alignItems="center">
-						<FormControlLabel
-							onChange={handleDarkMode}
-							checked={darkMode}
-							control={<MaterialUISwitch />}
-						/>
-						<Button variant="text" sx={{ color: "white" }}>
-							Browse Bootcamps
-						</Button>
-						<Button variant="contained" color="secondary">
-							Login
-						</Button>
-					</Box>
-				</Toolbar>
-			</AppBar>
-		</Box>
+		<AppBar
+			enableColorOnDark
+			elevation={scrolled ? 4 : 0}
+			sx={
+				scrolled ? { bgcolor: "white" } : { bgcolor: "rgba(255, 0, 0, 0.0);" }
+			}
+		>
+			<Toolbar>
+				<Typography
+					variant="h6"
+					component="div"
+					color="text.primary"
+					sx={{ flexGrow: 1 }}
+				>
+					News
+				</Typography>
+				<Box display="flex" gap="20px" alignItems="center">
+					<FormControlLabel
+						onChange={handleDarkMode}
+						checked={darkMode}
+						control={<MaterialUISwitch />}
+					/>
+					<Button variant="text">Browse Bootcamps</Button>
+					<Button variant="contained" color="primary">
+						Login
+					</Button>
+				</Box>
+			</Toolbar>
+		</AppBar>
 	);
 }
 

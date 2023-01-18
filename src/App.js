@@ -3,8 +3,6 @@ import { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import ModeContext from "./contexts/ModeContext";
-import Container from "./layouts/container/Container";
-import Navbar from "./layouts/navbar/Navbar";
 import router from "./routes/Routes";
 
 function App() {
@@ -14,16 +12,23 @@ function App() {
 		palette: {
 			mode: "light",
 			primary: {
-				main: "rgb(24, 33, 64)",
-				light: "rgb(24, 33, 64)",
-				dark: "rgb(24, 33, 64)",
+				main: "#9D82BC",
+				// light: "rgb(24, 33, 64)",
+				// dark: "rgb(24, 33, 64)",
 			},
 			secondary: {
 				main: "#ff4e26",
 			},
+			info: {
+				main: "#F8F6FA",
+			},
+			text: {
+				main: "rgb(72 , 72 , 72)",
+			},
 		},
 		typography: {
-			fontFamily: "Inter, sans-serif",
+			fontFamily:
+				"Inter, Sofia Sans Semi Condensed, Josefin Sans, Roboto, sans-serif",
 			button: {
 				fontWeight: "600",
 			},
@@ -34,12 +39,15 @@ function App() {
 		palette: {
 			mode: "dark",
 			primary: {
-				main: "rgb(24, 33, 64)",
-				light: "rgb(24, 33, 64)",
-				dark: "rgb(24, 33, 64)",
+				main: "#9D82BC",
+				// light: "rgb(24, 33, 64)",
+				// dark: "rgb(24, 33, 64)",
 			},
 			secondary: {
 				main: "#ff4e26",
+			},
+			info: {
+				main: "#F8F6FA",
 			},
 			background: {
 				default: "#22253C",
@@ -47,7 +55,8 @@ function App() {
 			},
 		},
 		typography: {
-			fontFamily: "Inter, Sofia Sans Semi Condensed, sans-serif",
+			fontFamily:
+				"Inter, Sofia Sans Semi Condensed, Josefin Sans, Roboto, sans-serif",
 			button: {
 				fontWeight: "600",
 			},

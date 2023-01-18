@@ -4,8 +4,8 @@ import React, { Children } from "react";
 function Container({ children }) {
 	return (
 		<Box
-			maxWidth={{ sm: "580px", md: "768px", lg: "1080px" }}
-			border="2px solid black"
+			maxWidth={{ sm: "580px", md: "768px", lg: "1140px" }}
+			// border="2px solid black"
 			margin="auto"
 		>
 			{children}
