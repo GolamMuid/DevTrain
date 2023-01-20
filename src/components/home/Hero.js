@@ -7,14 +7,16 @@ import Container from "../../layouts/container/Container";
 
 function Hero() {
 	return (
-		<Container>
+		<Container data-aos="zoom-in-down" data-aos-duration="1500">
 			<Box
 				display="flex"
 				flexDirection={{ xs: "column-reverse", md: "row" }}
 				alignItems="center"
 				justifyContent="space-around"
 				padding="20px"
-				height="calc(100vh - 120px)"
+				height={{ sm: "auto", lg: "calc(100vh - 120px)" }}
+				data-aos="zoom-in-down"
+				data-aos-duration="1500"
 			>
 				<Box>
 					<Typography
@@ -68,13 +70,13 @@ function Hero() {
 						</Button>
 					</Stack>
 				</Box>
-				<Box>
+				<Box height={{ sm: "60vh", lg: "auto" }}>
 					<Lottie
 						//  options={defaultOptions}
 						//     height={300}
 						//     width={300}
 						animationData={animationData}
-						// style={{ maxHeight: "300px" }}
+						style={{ height: "100%" }}
 					/>
 				</Box>
 			</Box>

@@ -1,4 +1,5 @@
 import React from "react";
+import Bootcamps from "../../components/home/Bootcamp/Bootcamps";
 import Features from "../../components/home/Features";
 import Hero from "../../components/home/Hero";
 import Container from "../../layouts/container/Container";
@@ -8,6 +9,7 @@ function Homepage() {
 		<div>
 			<Hero />
 			<Features />
+			<Bootcamps />
 		</div>
 	);
 }
