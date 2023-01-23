@@ -6,9 +6,13 @@ import BootcampModel from "./BootcampModel";
 
 function Bootcamps() {
 	return (
-		<Box>
+		<Box marginBottom="80px">
 			<Container>
-				<Box textAlign="center" marginBottom="40px">
+				<Box
+					textAlign="center"
+					marginBottom="40px"
+					padding={{ xs: "0px 20px", md: "0px" }}
+				>
 					<Typography
 						fontFamily="Roboto"
 						fontSize="1rem"
@@ -42,7 +46,8 @@ function Bootcamps() {
 						md: "1fr 1fr",
 						lg: "1fr 1fr 1fr",
 					}}
-					gap="40px"
+					columnGap="40px"
+					padding={{ xs: "0px 20px", md: "0px" }}
 				>
 					<BootcampModel />
 					<BootcampModel />

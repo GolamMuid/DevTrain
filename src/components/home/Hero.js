@@ -34,7 +34,7 @@ function Hero() {
 						letterSpacing="3.5px"
 						fontFamily="Sofia Sans Semi Condensed"
 						fontWeight="700"
-						fontSize={{ xs: "2.4rem", lg: "4rem" }}
+						fontSize={{ xs: "2rem", lg: "4rem" }}
 						lineHeight="1"
 
 						// sx={{ color: "text.primary" }}
@@ -45,7 +45,7 @@ function Hero() {
 						fontFamily="Sofia Sans Semi Condensed"
 						letterSpacing="3.5px"
 						fontWeight="700"
-						fontSize={{ xs: "2.4rem", lg: "4rem" }}
+						fontSize={{ xs: "2.125rem", lg: "4rem" }}
 						lineHeight="1"
 						color="text.primary"
 					>

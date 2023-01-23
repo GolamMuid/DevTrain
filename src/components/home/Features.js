@@ -15,7 +15,7 @@ function Features() {
 					backgroundColor: "info.main",
 					borderRadius: "30%",
 					padding: { xs: "60px 30px", md: "60px 0" },
-					marginBottom: "40px",
+					marginBottom: "80px",
 				}}
 			>
 				<Container>

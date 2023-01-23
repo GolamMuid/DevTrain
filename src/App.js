@@ -89,6 +89,24 @@ function App() {
 			button: {
 				fontWeight: "600",
 			},
+			h1: {
+				fontFamily: "Josefin Sans,sans-serif",
+			},
+			h2: {
+				fontFamily: "Josefin Sans,sans-serif",
+			},
+			h3: {
+				fontFamily: "Josefin Sans,sans-serif",
+			},
+			h4: {
+				fontFamily: "Josefin Sans,sans-serif",
+			},
+			h5: {
+				fontFamily: "Josefin Sans,sans-serif",
+			},
+			h6: {
+				fontFamily: "Josefin Sans,sans-serif",
+			},
 		},
 	});
 
