@@ -6,14 +6,14 @@ import Container from "../../layouts/container/Container";
 import Reviews from "../../components/home/reviews/Reviews";
 
 function Homepage() {
-	return (
-		<div>
-			<Hero />
-			<Features />
-			<Bootcamps />
-			<Reviews />
-		</div>
-	);
+  return (
+    <div>
+      <Hero />
+      <Features />
+      <Bootcamps />
+      <Reviews />
+    </div>
+  );
 }
 
 export default Homepage;

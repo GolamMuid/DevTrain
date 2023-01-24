@@ -1,5 +1,4 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import Aos from "aos";
 import { useContext, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
@@ -7,10 +6,6 @@ import ModeContext from "./contexts/ModeContext";
 import router from "./routes/Routes";
 
 function App() {
-	useEffect(() => {
-		Aos.init();
-	}, []);
-
 	const { darkMode } = useContext(ModeContext);
 
 	const themeLight = createTheme({

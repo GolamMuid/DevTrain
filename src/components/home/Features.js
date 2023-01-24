@@ -1,33 +1,33 @@
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import Aos from "aos";
 import React, { useContext, useEffect } from "react";
 import ModeContext from "../../contexts/ModeContext";
 import Container from "../../layouts/container/Container";
+import { Fade } from "react-reveal";
 
 function Features() {
 	const { darkMode } = useContext(ModeContext);
 
 	return (
-		<div data-aos="zoom-in-down" data-aos-duration="9000">
-			<Box
-				sx={{
-					backgroundColor: "info.main",
-					borderRadius: "30%",
-					padding: { xs: "60px 30px", md: "60px 0" },
-					marginBottom: "80px",
-				}}
-			>
-				<Container>
-					<Box
-						display="grid"
-						gridTemplateColumns={{
-							xs: "1fr",
-							md: "1fr 1fr",
-							lg: "1fr 1fr 1fr 1fr",
-						}}
-						gap="20px"
-					>
+		<Box
+			sx={{
+				backgroundColor: "info.main",
+				borderRadius: "30%",
+				padding: { xs: "60px 30px", md: "60px 0" },
+				marginBottom: "80px",
+			}}
+		>
+			<Container>
+				<Box
+					display="grid"
+					gridTemplateColumns={{
+						xs: "1fr",
+						md: "1fr 1fr",
+						lg: "1fr 1fr 1fr 1fr",
+					}}
+					gap="20px"
+				>
+					<Fade bottom big delay={100}>
 						<Paper>
 							<Box padding="20px 10px">
 								<img
@@ -47,6 +47,8 @@ function Features() {
 								</Typography>
 							</Box>
 						</Paper>
+					</Fade>
+					<Fade bottom big delay={200}>
 						<Paper>
 							<Box padding="20px 10px">
 								<img
@@ -66,6 +68,8 @@ function Features() {
 								</Typography>
 							</Box>
 						</Paper>
+					</Fade>
+					<Fade bottom big delay={300}>
 						<Paper>
 							<Box padding="20px 10px">
 								<img
@@ -85,6 +89,8 @@ function Features() {
 								</Typography>
 							</Box>
 						</Paper>
+					</Fade>
+					<Fade bottom big delay={400}>
 						<Paper>
 							<Box padding="20px 10px">
 								<img
@@ -104,10 +110,10 @@ function Features() {
 								</Typography>
 							</Box>
 						</Paper>
-					</Box>
-				</Container>
-			</Box>
-		</div>
+					</Fade>
+				</Box>
+			</Container>
+		</Box>
 	);
 }
 
