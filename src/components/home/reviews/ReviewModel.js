@@ -7,7 +7,7 @@ function ReviewModel() {
 	return (
 		<Card sx={{ backgroundColor: "primary.main" }}>
 			<CardContent sx={{ padding: "20px 10px" }}>
-				<Typography textAlign="center" padding="10px" color="#FFE779">
+				<Typography textAlign="center" padding="10px" color="warning.main">
 					<BsStarFill />
 					<BsStarFill />
 					<BsStarFill />

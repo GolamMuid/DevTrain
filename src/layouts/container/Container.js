@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import React, { Children } from "react";
+import React from "react";
 
 function Container({ children }) {
 	return (

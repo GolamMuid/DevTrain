@@ -37,7 +37,7 @@ function Bootcamps() {
 							color="text.primary"
 							sx={{ lineHeight: "1.3" }}
 						>
-							Enroll in a bootcamps that suits your career path
+							Enroll in a bootcamp that suits your career path
 							<br />
 							and get started
 						</Typography>
