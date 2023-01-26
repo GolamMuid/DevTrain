@@ -5,6 +5,7 @@ import Container from "../../../layouts/container/Container";
 import BootcampModel from "./BootcampModel";
 import RubberBand from "react-reveal/RubberBand";
 import Fade from "react-reveal/Fade";
+import { Link } from "react-router-dom";
 
 function Bootcamps() {
   return (
@@ -60,6 +61,14 @@ function Bootcamps() {
           <BootcampModel />
           <BootcampModel />
         </Box>
+        <Link to="/bootcamps">
+          <Button
+            variant="contained"
+            sx={{ margin: "auto", display: "block", textDecoration: "none" }}
+          >
+            See all bootcamps
+          </Button>
+        </Link>
       </Container>
     </Box>
   );
