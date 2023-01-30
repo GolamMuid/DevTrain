@@ -4,6 +4,7 @@ import AddBootcampPage from "../pages/addBootcamp/AddBootcampPage";
 import BootcampPage from "../pages/bootcamp/BootcampPage";
 import BootcampsPage from "../pages/bootcamps/BootcampsPage";
 import Homepage from "../pages/homepage/Homepage";
+import ManageBootcampPage from "../pages/manageBootcamp/ManageBootcampPage";
 
 const router = createBrowserRouter([
 	{
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
 			{
 				path: "/add-bootcamp",
 				element: <AddBootcampPage />,
+			},
+			{
+				path: "/manage-bootcamp",
+				element: <ManageBootcampPage />,
 			},
 		],
 	},
