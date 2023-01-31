@@ -12,6 +12,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Container from "../../layouts/container/Container";
 
+// Custom Components
+
 const InputBox = styled(Box)(({ theme }) => ({
 	marginBottom: "20px",
 }));
@@ -23,6 +25,8 @@ const GridBox = styled(Box)(({ theme }) => ({
 	gap: "20px",
 	alignItems: "center",
 }));
+
+// Custom Components
 
 function AddBootcamp() {
 	const {
@@ -46,6 +50,8 @@ function AddBootcamp() {
 					gridTemplateColumns={{ xs: "1fr", md: "1fr 1fr" }}
 					gap="20px"
 				>
+					{/* Left Column starts */}
+
 					<Box padding="20px">
 						<Typography variant="h5" sx={{ marginBottom: "16px" }}>
 							Location & Contact
@@ -113,6 +119,11 @@ function AddBootcamp() {
 							/>
 						</InputBox>
 					</Box>
+
+					{/* Left Column ends */}
+
+					{/* Right Column starts */}
+
 					<Box padding="20px">
 						<Typography variant="h5" sx={{ marginBottom: "16px" }}>
 							Other Info
@@ -124,8 +135,13 @@ function AddBootcamp() {
 								size="small"
 								multiline
 								rows={4}
-								placeholder="Description (What you offer, Basic idea about the bootcamp etc)"
-								{...register("description")}
+								placeholder="Description (What you offer, Basic idea about the bootcamp etc) 500 characters max"
+								{...register("description", { maxLength: 500 })}
+								error={Boolean(errors.description)}
+								helperText={
+									errors.description &&
+									"Description cannot be more than 500 characters"
+								}
 							/>
 						</InputBox>
 						<InputBox>
@@ -208,6 +224,8 @@ function AddBootcamp() {
 							/>
 						</GridBox>
 					</Box>
+
+					{/* Right Column ends */}
 				</Box>
 				<Typography variant="body2" padding="20px" fontStyle="italic">
 					You can publish only one bootcamp. You can add multiple coureses in

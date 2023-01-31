@@ -83,6 +83,11 @@ function App() {
 				default: "#22253C",
 				paper: "#1d1d25",
 			},
+			infoBlue: palette.augmentColor({
+				color: {
+					main: "#0288d1",
+				},
+			}),
 		},
 		typography: {
 			fontFamily:

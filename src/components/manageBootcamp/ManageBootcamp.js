@@ -5,6 +5,7 @@ import {
 	Card,
 	IconButton,
 	Table,
+	TableBody,
 	TableCell,
 	TableRow,
 	Typography,
@@ -13,6 +14,12 @@ import React from "react";
 import Container from "../../layouts/container/Container";
 import { RiEditLine } from "react-icons/ri";
 import { MdDeleteOutline } from "react-icons/md";
+import { useState } from "react";
+import EditBootcamp from "./EditBootcamp";
+import AddCourse from "./AddCourse";
+import EditCourse from "./EditCourse";
+
+// Custom Components
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	td: {
@@ -27,7 +34,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
+// Custom Components
+
 function ManageBootcamp() {
+	// States for Modals
+
+	const [editBootcamp, setEditBootcamp] = useState(false);
+	const [addCourse, setAddCourse] = useState(false);
+	const [editCourse, setEditCourse] = useState(false);
+
+	// States for Modals
+
 	return (
 		<Container>
 			<Box
@@ -35,11 +52,11 @@ function ManageBootcamp() {
 				gridTemplateColumns={{ xs: "1fr", md: "3fr 2fr" }}
 				gap="20px"
 			>
-				<Box padding={{ xs: "0px 20px", md: "0" }}>
+				<Box padding={{ xs: "0px 20px", md: "0" }} marginBottom="20px">
 					<Typography variant="h4" style={{ padding: "20px 0" }}>
 						DevWorks Bootcamp
 					</Typography>
-					<Box display="flex" alignItems="center" justifyContent="center">
+					<Box>
 						<img
 							src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
 							alt="Bootcamp"
@@ -49,6 +66,7 @@ function ManageBootcamp() {
 								width: "100%",
 								maxHeight: "300px",
 								padding: "20px 0",
+								margin: "auto",
 							}}
 						/>
 					</Box>
@@ -60,35 +78,47 @@ function ManageBootcamp() {
 					</Typography>
 					<Box padding="20px 0">
 						<Table size="small">
-							<StyledTableRow>
-								<TableCell> Average Cost per course </TableCell>
-								<TableCell align="right"> $50 </TableCell>
-							</StyledTableRow>
-							<StyledTableRow>
-								<TableCell> Total Cost </TableCell>
-								<TableCell align="right"> $50 </TableCell>
-							</StyledTableRow>
-							<StyledTableRow>
-								<TableCell> Housing </TableCell>
-								<TableCell align="right"> Yes </TableCell>
-							</StyledTableRow>
-							<StyledTableRow>
-								<TableCell> Job Assistance </TableCell>
-								<TableCell align="right"> No </TableCell>
-							</StyledTableRow>
-							<StyledTableRow>
-								<TableCell> Job Gurantee </TableCell>
-								<TableCell align="right"> Yes </TableCell>
-							</StyledTableRow>
-							<StyledTableRow>
-								<TableCell> Accepts GI Bill </TableCell>
-								<TableCell align="right"> Yes </TableCell>
-							</StyledTableRow>
+							<TableBody>
+								<StyledTableRow>
+									<TableCell> Average Cost per course </TableCell>
+									<TableCell align="right"> $50 </TableCell>
+								</StyledTableRow>
+								<StyledTableRow>
+									<TableCell> Total Cost </TableCell>
+									<TableCell align="right"> $50 </TableCell>
+								</StyledTableRow>
+								<StyledTableRow>
+									<TableCell> Housing </TableCell>
+									<TableCell align="right"> Yes </TableCell>
+								</StyledTableRow>
+								<StyledTableRow>
+									<TableCell> Job Assistance </TableCell>
+									<TableCell align="right"> No </TableCell>
+								</StyledTableRow>
+								<StyledTableRow>
+									<TableCell> Job Gurantee </TableCell>
+									<TableCell align="right"> Yes </TableCell>
+								</StyledTableRow>
+								<StyledTableRow>
+									<TableCell> Accepts GI Bill </TableCell>
+									<TableCell align="right"> Yes </TableCell>
+								</StyledTableRow>
+							</TableBody>
 						</Table>
 					</Box>
+					<Button
+						variant="contained"
+						sx={{ margin: "auto", display: "block" }}
+						onClick={() => setEditBootcamp(true)}
+					>
+						Edit Bootcamp
+					</Button>
 				</Box>
 				<Card
-					sx={{ height: "fit-content", padding: { xs: "0px 20px", md: "0" } }}
+					sx={{
+						height: "fit-content",
+						margin: { xs: "0px 20px 20px", md: "0" },
+					}}
 				>
 					<Typography
 						variant="h5"
@@ -102,6 +132,10 @@ function ManageBootcamp() {
 						Courses
 					</Typography>
 					<Box padding="10px">
+						<Typography variant="h6" textAlign="center" padding="20px">
+							You haven't added any course yet
+						</Typography>
+
 						<Box
 							display="flex"
 							alignItems="center"
@@ -110,7 +144,13 @@ function ManageBootcamp() {
 						>
 							<Typography variant="h6">Front End Web Development</Typography>
 							<Box display="flex">
-								<IconButton color="infoBlue"> {<RiEditLine />} </IconButton>
+								<IconButton
+									color="infoBlue"
+									onClick={() => setEditCourse(true)}
+								>
+									{" "}
+									{<RiEditLine />}{" "}
+								</IconButton>
 								<IconButton color="error"> {<MdDeleteOutline />} </IconButton>
 							</Box>
 						</Box>
@@ -130,6 +170,7 @@ function ManageBootcamp() {
 							<Button
 								variant="contained"
 								sx={{ margin: "auto", display: "block" }}
+								onClick={() => setAddCourse(true)}
 							>
 								Add Course
 							</Button>
@@ -137,6 +178,12 @@ function ManageBootcamp() {
 					</Box>
 				</Card>
 			</Box>
+			<EditBootcamp
+				editBootcamp={editBootcamp}
+				setEditBootcamp={setEditBootcamp}
+			/>
+			<AddCourse addCourse={addCourse} setAddCourse={setAddCourse} />
+			<EditCourse editCourse={editCourse} setEditCourse={setEditCourse} />
 		</Container>
 	);
 }
