@@ -79,6 +79,9 @@ function AddBootcamp() {
 								error={Boolean(errors.address)}
 								helperText={errors.address?.message}
 							/>
+							<Typography variant="body2" fontStyle="italic">
+								Note that Bootcamp address cannot be changed later
+							</Typography>
 						</InputBox>
 						<InputBox>
 							<Typography variant="body1">Contact Number :</Typography>

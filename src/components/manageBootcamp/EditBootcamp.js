@@ -3,7 +3,6 @@ import {
 	Button,
 	Dialog,
 	DialogContent,
-	DialogTitle,
 	Slide,
 	Checkbox,
 	FormControlLabel,
@@ -81,9 +80,6 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 						{/* Left Column starts */}
 
 						<Box padding="20px">
-							<Typography variant="h5" sx={{ marginBottom: "16px" }}>
-								Location & Contact
-							</Typography>
 							<InputBox>
 								<Typography variant="body1">Name :</Typography>
 								<TextField
@@ -96,18 +92,22 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 								/>
 							</InputBox>
 							<InputBox>
-								<Typography variant="body1">Address :</Typography>
+								<Typography variant="body1">Description :</Typography>
 								<TextField
 									fullWidth
 									size="small"
 									multiline
 									rows={4}
-									placeholder="Full Address eg. street, city, state, etc"
-									{...register("address", { required: "Address is required" })}
-									error={Boolean(errors.address)}
-									helperText={errors.address?.message}
+									placeholder="Description (What you offer, Basic idea about the bootcamp etc) 500 characters max"
+									{...register("description", { maxLength: 500 })}
+									error={Boolean(errors.description)}
+									helperText={
+										errors.description &&
+										"Description cannot be more than 500 characters"
+									}
 								/>
 							</InputBox>
+
 							<InputBox>
 								<Typography variant="body1">Contact Number :</Typography>
 								<TextField
@@ -155,25 +155,6 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 						{/* Right Column starts */}
 
 						<Box padding="20px">
-							<Typography variant="h5" sx={{ marginBottom: "16px" }}>
-								Other Info
-							</Typography>
-							<InputBox>
-								<Typography variant="body1">Description :</Typography>
-								<TextField
-									fullWidth
-									size="small"
-									multiline
-									rows={4}
-									placeholder="Description (What you offer, Basic idea about the bootcamp etc) 500 characters max"
-									{...register("description", { maxLength: 500 })}
-									error={Boolean(errors.description)}
-									helperText={
-										errors.description &&
-										"Description cannot be more than 500 characters"
-									}
-								/>
-							</InputBox>
 							<InputBox>
 								<Typography variant="body1">Careers :</Typography>
 								<Box display="flex" justifyContent="space-between">
