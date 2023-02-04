@@ -116,8 +116,10 @@ function AddCourse({ addCourse, setAddCourse }) {
 									error={Boolean(errors.tuition)}
 								/>
 								{errors?.tuition?.type === "required" && (
-									<FormHelperText sx={{ color: "red" }}>
-										Course is required
+									<FormHelperText
+										sx={{ marginLeft: "16px", color: "error.main" }}
+									>
+										Tuition is required
 									</FormHelperText>
 								)}
 							</InputBox>

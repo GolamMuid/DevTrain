@@ -4,6 +4,7 @@ import AddBootcampPage from "../pages/addBootcamp/AddBootcampPage";
 import BootcampPage from "../pages/bootcamp/BootcampPage";
 import BootcampsPage from "../pages/bootcamps/BootcampsPage";
 import Homepage from "../pages/homepage/Homepage";
+import LoginPage from "../pages/login/LoginPage";
 import ManageBootcampPage from "../pages/manageBootcamp/ManageBootcampPage";
 
 const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
 				element: <ManageBootcampPage />,
 			},
 		],
+	},
+	{
+		path: "/login",
+		element: <LoginPage />,
 	},
 ]);
 
