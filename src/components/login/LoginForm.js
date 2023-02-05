@@ -36,8 +36,8 @@ function LoginForm() {
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 
 	return (
-		<Box padding="20px">
-			<Typography variant="h4" textAlign="center" padding="10px">
+		<Box>
+			<Typography variant="h4" textAlign="center" padding="20px 0 10px">
 				Login
 			</Typography>
 			<form onSubmit={handleSubmit(onSubmit)}>

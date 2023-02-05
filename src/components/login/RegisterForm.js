@@ -45,8 +45,8 @@ function RegisterForm() {
 		setShowCPassword((showCPassword) => !showCPassword);
 
 	return (
-		<Box padding="20px">
-			<Typography variant="h4" textAlign="center" padding="10px">
+		<Box>
+			<Typography variant="h4" textAlign="center" padding="20px 0 10px">
 				Register
 			</Typography>
 			<form onSubmit={handleSubmit(onSubmit)}>
