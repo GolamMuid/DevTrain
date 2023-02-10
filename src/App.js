@@ -13,7 +13,7 @@ function App() {
 		palette: {
 			mode: "light",
 			primary: {
-				main: "#9D82BC",
+				main: "#9E77ED",
 				// light: "rgb(24, 33, 64)",
 				// dark: "rgb(24, 33, 64)",
 			},
@@ -66,7 +66,7 @@ function App() {
 		palette: {
 			mode: "dark",
 			primary: {
-				main: "#9D82BC",
+				main: "#9E77ED",
 				// light: "rgb(24, 33, 64)",
 				// dark: "rgb(24, 33, 64)",
 			},
@@ -80,8 +80,8 @@ function App() {
 				main: "#f7bb25",
 			},
 			background: {
-				default: "#22253C",
-				paper: "#1d1d25",
+				default: "#0E1320",
+				// paper: "#111927",
 			},
 			infoBlue: palette.augmentColor({
 				color: {
