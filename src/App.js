@@ -13,7 +13,7 @@ function App() {
 		palette: {
 			mode: "light",
 			primary: {
-				main: "#9E77ED",
+				main: "#ff4e26",
 				// light: "rgb(24, 33, 64)",
 				// dark: "rgb(24, 33, 64)",
 			},
@@ -60,13 +60,16 @@ function App() {
 				fontFamily: "Josefin Sans,sans-serif",
 			},
 		},
+		shape: {
+			borderRadius: 10,
+		},
 	});
 
 	const themeDark = createTheme({
 		palette: {
 			mode: "dark",
 			primary: {
-				main: "#9E77ED",
+				main: "#ff4e26",
 				// light: "rgb(24, 33, 64)",
 				// dark: "rgb(24, 33, 64)",
 			},
@@ -113,6 +116,9 @@ function App() {
 			h6: {
 				fontFamily: "Josefin Sans,sans-serif",
 			},
+		},
+		shape: {
+			borderRadius: 10,
 		},
 	});
 

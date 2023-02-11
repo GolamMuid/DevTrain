@@ -31,12 +31,16 @@ function Login() {
 				display="flex"
 				alignItems="center"
 				justifyContent="center"
-				sx={{ bgcolor: "white" }}
+				sx={{
+					backgroundImage: "url(/assets/images/gradient-bg.svg)",
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+				}}
 			>
 				<Paper
 					sx={{
 						minWidth: { xs: "80vw", md: "50vw" },
-						backgroundColor: "rgba(255, 255, 255, .5)",
+						backgroundColor: "rgba(255, 255, 255, .15)",
 						backdropFilter: "blur(5px)",
 						padding: "20px",
 					}}

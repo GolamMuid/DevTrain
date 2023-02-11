@@ -5,7 +5,7 @@ import React from "react";
 function BootcampModel() {
 	const BootcampModel = styled(Paper)(({ theme }) => ({
 		marginBottom: "40px",
-		"& div:nth-child(1)": {
+		"& div:nth-of-type(1)": {
 			overflow: "hidden",
 			maxHeight: "220px",
 			maxWidth: "fit-content",
@@ -24,7 +24,7 @@ function BootcampModel() {
 	}));
 
 	return (
-		<BootcampModel elevation="3">
+		<BootcampModel elevation={3}>
 			<Box>
 				<img
 					src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
