@@ -4,13 +4,12 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Drawer, FormControlLabel, IconButton, Switch } from "@mui/material";
+import { FormControlLabel, IconButton, Switch } from "@mui/material";
 import styled from "@emotion/styled";
 import ModeContext from "../../contexts/ModeContext";
 import { Link } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
 import TopDrawer from "./TopDrawer";
-// import TopDrawer from "./TopDrawer";
+import Hamburger from "hamburger-react";
 
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 	width: 62,
@@ -79,8 +78,8 @@ function Navbar() {
 			elevation={scrolled || drawerState ? 4 : 0}
 			sx={
 				scrolled
-					? { bgcolor: "rgba(255, 255, 255, .85)", backdropFilter: "blur(5px)" }
-					: { bgcolor: "rgba(255, 0, 0, 0.0);" }
+					? { bgcolor: "navBg.scrolled", backdropFilter: "blur(5px)" }
+					: { bgcolor: "navBg.main" }
 			}
 		>
 			<TopDrawer drawerState={drawerState} setDrawerState={setDrawerState} />
@@ -91,7 +90,7 @@ function Navbar() {
 					color="text.primary"
 					sx={{ flexGrow: 1 }}
 				>
-					News
+					<Link to="/">News</Link>
 				</Typography>
 				<Box
 					display={{ xs: "none", md: "flex" }}
@@ -112,7 +111,12 @@ function Navbar() {
 				</Box>
 				<Box display={{ xs: "block", md: "none" }}>
 					<IconButton onClick={() => setDrawerState(!drawerState)}>
-						<MenuIcon />
+						{/* <MenuIcon /> */}
+						<Hamburger
+							toggled={drawerState}
+							toggle={setDrawerState}
+							size={24}
+						/>
 					</IconButton>
 				</Box>
 			</Toolbar>

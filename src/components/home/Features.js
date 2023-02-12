@@ -6,13 +6,11 @@ import Container from "../../layouts/container/Container";
 import { Fade } from "react-reveal";
 
 function Features() {
-	const { darkMode } = useContext(ModeContext);
-
 	return (
 		<Box
 			sx={{
 				backgroundColor: "info.main",
-				borderRadius: "30%",
+				borderRadius: { xs: "0", md: "30%" },
 				padding: { xs: "60px 30px", md: "60px 0" },
 				marginBottom: "80px",
 			}}
@@ -35,14 +33,10 @@ function Features() {
 									alt="Expert Trainers"
 									style={{ height: "90px" }}
 								/>
-								<Typography
-									variant="h5"
-									color="text.secondary"
-									padding="10px 0"
-								>
+								<Typography variant="h5" color="text.primary" padding="10px 0">
 									Expert Trainers
 								</Typography>
-								<Typography variant="p" color="text.primary" padding="10px 0">
+								<Typography variant="body1" color="text.secondary">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 								</Typography>
 							</Box>
@@ -56,14 +50,10 @@ function Features() {
 									alt="Expert Trainers"
 									style={{ height: "90px" }}
 								/>
-								<Typography
-									variant="h5"
-									color="text.secondary"
-									padding="10px 0"
-								>
+								<Typography variant="h5" color="text.primary" padding="10px 0">
 									Certification
 								</Typography>
-								<Typography variant="p" color="text.primary" padding="10px 0">
+								<Typography variant="p" color="text.secondary">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 								</Typography>
 							</Box>
@@ -77,14 +67,10 @@ function Features() {
 									alt="Expert Trainers"
 									style={{ height: "90px" }}
 								/>
-								<Typography
-									variant="h5"
-									color="text.secondary"
-									padding="10px 0"
-								>
+								<Typography variant="h5" color="text.primary" padding="10px 0">
 									Scholarship
 								</Typography>
-								<Typography variant="p" color="text.primary" padding="10px 0">
+								<Typography variant="p" color="text.secondary">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 								</Typography>
 							</Box>
@@ -98,14 +84,10 @@ function Features() {
 									alt="Expert Trainers"
 									style={{ height: "90px" }}
 								/>
-								<Typography
-									variant="h5"
-									color="text.secondary"
-									padding="10px 0"
-								>
+								<Typography variant="h5" color="text.primary" padding="10px 0">
 									Job Assistance
 								</Typography>
-								<Typography variant="p" color="text.primary" padding="10px 0">
+								<Typography variant="p" color="text.secondary">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 								</Typography>
 							</Box>

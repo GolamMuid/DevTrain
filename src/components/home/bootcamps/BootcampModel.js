@@ -5,6 +5,7 @@ import React from "react";
 function BootcampModel() {
 	const BootcampModel = styled(Paper)(({ theme }) => ({
 		marginBottom: "40px",
+		backgroundImage: "none",
 		"& div:nth-of-type(1)": {
 			overflow: "hidden",
 			maxHeight: "220px",
@@ -49,7 +50,7 @@ function BootcampModel() {
 					Enroll in a bootcamps that suits your career path and get started
 				</Typography>
 				<Stack alignItems="center" margin="10px 0px 0">
-					<Button variant="text" color="secondary">
+					<Button variant="text" color="primary">
 						See Details
 					</Button>
 				</Stack>

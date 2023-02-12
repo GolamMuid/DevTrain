@@ -25,7 +25,7 @@ function Reviews() {
 						>
 							Our Testimonial
 						</Typography>
-						<Typography variant="h3" color="text.secondary" padding="10px 0">
+						<Typography variant="h3" color="text.primary" padding="10px 0">
 							Review From Our Students
 						</Typography>
 					</Box>
@@ -34,8 +34,7 @@ function Reviews() {
 					display="grid"
 					gridTemplateColumns={{
 						xs: "1fr",
-						md: "1fr 1fr",
-						lg: "1fr 1fr 1fr",
+						md: "1fr 1fr 1fr",
 					}}
 					columnGap="40px"
 					rowGap="20px"

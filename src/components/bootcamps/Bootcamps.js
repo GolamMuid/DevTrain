@@ -39,9 +39,10 @@ function Bootcamps() {
 						<Paper sx={{ padding: "20px 10px", height: "fit-content" }}>
 							<Typography
 								variant="h4"
-								color="text.secondary"
+								color="text.primary"
 								padding="10px 0"
 								textAlign="center"
+								backgroundImage="none"
 							>
 								Filter
 							</Typography>

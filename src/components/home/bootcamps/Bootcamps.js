@@ -1,4 +1,4 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import Container from "../../../layouts/container/Container";
@@ -26,7 +26,7 @@ function Bootcamps() {
 						>
 							Choose your path
 						</Typography>
-						<Typography variant="h3" color="text.secondary" padding="10px 0">
+						<Typography variant="h3" color="text.primary" padding="10px 0">
 							Popular Bootcamps
 						</Typography>
 						<Typography
@@ -34,7 +34,7 @@ function Bootcamps() {
 							fontWeight="500"
 							fontSize={{ xs: "1rem" }}
 							lineHeight="1"
-							color="text.primary"
+							color="text.secondary"
 							sx={{ lineHeight: "1.3" }}
 						>
 							Enroll in a bootcamp that suits your career path

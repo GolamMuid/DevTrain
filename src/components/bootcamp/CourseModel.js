@@ -1,4 +1,11 @@
-import { Card, Table, TableCell, TableRow, Typography } from "@mui/material";
+import {
+	Card,
+	Table,
+	TableBody,
+	TableCell,
+	TableRow,
+	Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
@@ -24,18 +31,20 @@ function CourseModel() {
 			</Typography>
 			<Box sx={{ padding: "10px 20px" }}>
 				<Table size="small" sx={{ width: "50%", margin: "auto" }}>
-					<TableRow>
-						<TableCell> Cost </TableCell>
-						<TableCell align="right"> $50 </TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell> Skill Required </TableCell>
-						<TableCell align="right"> Beginner </TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell> Scholarship Available </TableCell>
-						<TableCell align="right"> Yes </TableCell>
-					</TableRow>
+					<TableBody>
+						<TableRow>
+							<TableCell> Cost </TableCell>
+							<TableCell align="right"> $50 </TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell> Skill Required </TableCell>
+							<TableCell align="right"> Beginner </TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell> Scholarship Available </TableCell>
+							<TableCell align="right"> Yes </TableCell>
+						</TableRow>
+					</TableBody>
 				</Table>
 			</Box>
 			<Typography

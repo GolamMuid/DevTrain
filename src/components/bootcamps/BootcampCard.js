@@ -9,6 +9,7 @@ function BootcampCard() {
 	const BootcampCard = styled(Card)(({ theme }) => ({
 		marginBottom: "20px",
 		maxWidth: "100%",
+		backgroundImage: "none",
 		"& img": {
 			// maxWidth: "100%",
 			maxHeight: "160px",

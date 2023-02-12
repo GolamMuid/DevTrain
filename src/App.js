@@ -18,10 +18,11 @@ function App() {
 				// dark: "rgb(24, 33, 64)",
 			},
 			secondary: {
-				main: "#ff4e26",
+				main: "#9D82BC",
 			},
 			info: {
-				main: "#F8F6FA",
+				main: "#ffebe7",
+				// main: "rgba(255,78,38, 0.3)",
 			},
 			warning: {
 				main: "#f7bb25",
@@ -32,6 +33,12 @@ function App() {
 			infoBlue: palette.augmentColor({
 				color: {
 					main: "#0288d1",
+				},
+			}),
+			navBg: palette.augmentColor({
+				color: {
+					main: "rgba(255, 0, 0, 0.0)",
+					scrolled: "rgba(255, 255, 255, .85)",
 				},
 			}),
 		},
@@ -74,21 +81,28 @@ function App() {
 				// dark: "rgb(24, 33, 64)",
 			},
 			secondary: {
-				main: "#ff4e26",
+				main: "#9D82BC",
 			},
 			info: {
-				main: "#9D82BC",
+				// main: "#9D82BC",
+				main: "#ff4e26",
 			},
 			warning: {
 				main: "#f7bb25",
 			},
 			background: {
 				default: "#0E1320",
-				// paper: "#111927",
+				paper: "#1D2532",
 			},
 			infoBlue: palette.augmentColor({
 				color: {
 					main: "#0288d1",
+				},
+			}),
+			navBg: palette.augmentColor({
+				color: {
+					main: "rgba(255, 0, 0, 0.0)",
+					scrolled: "rgba(	14,	19,	32, .85)",
 				},
 			}),
 		},
