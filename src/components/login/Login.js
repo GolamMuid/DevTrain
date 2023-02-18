@@ -4,9 +4,6 @@ import React from "react";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
-import { particlesOptions } from "./particlesConfig";
 
 const Tabpanel = ({ value, index, children }) => {
 	return value === index && <Box role="tabpanel">{children}</Box>;
@@ -19,13 +16,8 @@ function Login() {
 		setValue(newValue);
 	};
 
-	const particlesInit = (engine) => {
-		loadFull(engine);
-	};
-
 	return (
 		<>
-			{/* <Particles init={particlesInit} options={particlesOptions} /> */}
 			<Box
 				minHeight="100vh"
 				display="flex"

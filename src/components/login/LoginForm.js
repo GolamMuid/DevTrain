@@ -10,11 +10,15 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { Stack } from "@mui/system";
 import React from "react";
 import { useForm } from "react-hook-form";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Toast from "../../layouts/toast/Toast";
+import { BeatLoader } from "react-spinners";
 
 const InputBox = styled(Box)(({ theme }) => ({
 	marginBottom: "20px",
@@ -27,8 +31,41 @@ function LoginForm() {
 		handleSubmit,
 	} = useForm();
 
-	const onSubmit = (data) => {
-		console.log(data);
+	const navigate = useNavigate();
+
+	const [loading, setLoading] = useState(false);
+
+	const [snackbarState, setSnackbarState] = useState({
+		state: false,
+		type: "",
+		message: "",
+	});
+
+	const close = () => setSnackbarState(false);
+
+	const onSubmit = async (data) => {
+		setLoading(true);
+		try {
+			const response = await axios.post(
+				"https://devtrain.cyclic.app/api/v1/auth/login",
+				data
+			);
+			console.log(response);
+			if (response?.data?.success) {
+				navigate("/");
+				setLoading(false);
+			} else {
+				alert("falied");
+				setLoading(false);
+			}
+		} catch (error) {
+			setSnackbarState({
+				state: true,
+				type: "error",
+				message: "Invalid Credentials",
+			});
+			setLoading(false);
+		}
 	};
 
 	const [showPassword, setShowPassword] = React.useState(false);
@@ -89,14 +126,21 @@ function LoginForm() {
 						</Link>
 					</Box>
 				</InputBox>
-				<Button
-					type="submit"
-					variant="contained"
-					sx={{ margin: "auto", display: "block" }}
-				>
-					Login
-				</Button>
+				{loading ? (
+					<Button variant="contained" sx={{ margin: "auto", display: "block" }}>
+						<BeatLoader size={13} color="#fff" />
+					</Button>
+				) : (
+					<Button
+						type="submit"
+						variant="contained"
+						sx={{ margin: "auto", display: "block" }}
+					>
+						Login
+					</Button>
+				)}
 			</form>
+			<Toast snackbarState={snackbarState} close={close} />
 		</Box>
 	);
 }

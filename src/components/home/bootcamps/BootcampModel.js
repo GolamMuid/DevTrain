@@ -1,10 +1,14 @@
 import styled from "@emotion/styled";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function BootcampModel() {
+function BootcampModel(props) {
+	const { name, averageCost, description, id, slug } = props;
+
+	const navigate = useNavigate();
+
 	const BootcampModel = styled(Paper)(({ theme }) => ({
-		marginBottom: "40px",
 		backgroundImage: "none",
 		"& div:nth-of-type(1)": {
 			overflow: "hidden",
@@ -34,10 +38,10 @@ function BootcampModel() {
 			</Box>
 			<Box padding="10px 20px">
 				<Typography variant="h5" color="text.primary">
-					Course Name
+					{name}
 				</Typography>
 				<Typography variant="h6" color="text.secondary" marginBottom="10px">
-					$10000
+					${averageCost}
 				</Typography>
 				<Typography
 					fontFamily="Roboto"
@@ -47,12 +51,18 @@ function BootcampModel() {
 					color="text.primary"
 					marginBottom="10px"
 				>
-					Enroll in a bootcamps that suits your career path and get started
+					{description}
 				</Typography>
 				<Stack alignItems="center" margin="10px 0px 0">
-					<Button variant="text" color="primary">
-						See Details
-					</Button>
+					<Link to={`/bootcamps/${id}`}>
+						<Button
+							variant="text"
+							color="primary"
+							// onClick={(id) => navigate(`/bootcamp/${id}`)}
+						>
+							See Details
+						</Button>
+					</Link>
 				</Stack>
 			</Box>
 		</BootcampModel>
