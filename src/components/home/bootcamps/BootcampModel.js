@@ -54,7 +54,7 @@ function BootcampModel(props) {
 					{description}
 				</Typography>
 				<Stack alignItems="center" margin="10px 0px 0">
-					<Link to={`/bootcamps/${id}`}>
+					<Link to={`/bootcamps/${slug}-${id}`}>
 						<Button
 							variant="text"
 							color="primary"
