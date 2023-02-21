@@ -10,7 +10,6 @@ import { Box } from "@mui/system";
 import React from "react";
 
 function CourseModel(props) {
-	console.log("props", props);
 	return (
 		<Card sx={{ margin: "20px 0" }}>
 			<Typography

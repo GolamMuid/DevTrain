@@ -3,6 +3,7 @@ import {
 	Card,
 	Pagination,
 	Paper,
+	Skeleton,
 	Slider,
 	Stack,
 	TextField,
@@ -20,6 +21,8 @@ function Bootcamps() {
 		"bootcampCollection"
 	);
 
+	console.log(data);
+
 	const [radiusValue, setRadiusValue] = useState(0);
 	const [zipValue, setZipValue] = useState(0);
 	const [cost, setCost] = useState([0, 20000]);
@@ -31,10 +34,6 @@ function Bootcamps() {
 	const handleCostChange = (event, newValue) => {
 		setCost(newValue);
 	};
-
-	if (isLoading) {
-		return "uuuuuu";
-	}
 
 	return (
 		<Box>
@@ -120,7 +119,14 @@ function Bootcamps() {
 					</Box>
 					<Box padding="0px 10px">
 						<Box>
-							{!isLoading &&
+							{isLoading ? (
+								<>
+									<Skeleton height="200px" />
+									<Skeleton height="200px" />
+									<Skeleton height="200px" />
+									<Skeleton height="200px" />
+								</>
+							) : (
 								data?.map((bootcamp) => {
 									return (
 										<BootcampCard
@@ -129,10 +135,12 @@ function Bootcamps() {
 											name={bootcamp.name}
 											averageCost={bootcamp.averageCost}
 											description={bootcamp.description}
+											rating={bootcamp.rating}
 											slug={bootcamp.slug}
 										/>
 									);
-								})}
+								})
+							)}
 							{/* <Box padding="10px" display="flex" justifyContent="center">
                 <Pagination count={10} color="primary" />
               </Box> */}

@@ -16,6 +16,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import ReviewModel from "./ReviewModel";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 function Bootcamp() {
 	const { slug } = useParams();
@@ -38,8 +40,6 @@ function Bootcamp() {
 	);
 
 	console.log(data);
-	console.log(reviews);
-	console.log("courses", courses);
 
 	return (
 		<Container>
@@ -85,23 +85,63 @@ function Bootcamp() {
 					})}
 				</Box>
 				<Box margin={{ xs: "0 10px", md: "0" }}>
-					<Card sx={{ padding: "10px 0" }}>
-						<Typography variant="h6" textAlign="center" color="primary">
-							Average cost per course:
-						</Typography>
-						<Typography variant="h6" textAlign="center">
-							${data?.averageCost}
-						</Typography>
-						<Typography variant="h6" textAlign="center" color="primary">
-							Total Cost:
-						</Typography>
-						<Typography variant="h6" textAlign="center">
-							$10000
-						</Typography>
-						<Box padding="20px 30px 0">
-							{isLoading ? (
-								<Skeleton height="200px" />
-							) : (
+					<Card sx={{ padding: "10px" }}>
+						{isLoading ? (
+							<Skeleton height="150px" />
+						) : (
+							<Box>
+								<Typography variant="h6" textAlign="center" color="primary">
+									Location:
+								</Typography>
+								<Typography
+									variant="body2"
+									textAlign="center"
+									marginBottom="10px"
+								>
+									{data?.location?.formattedAddress}
+								</Typography>
+								<Typography variant="h6" textAlign="center" color="primary">
+									Average cost per course:
+								</Typography>
+								<Typography variant="h6" textAlign="center">
+									${data?.averageCost}
+								</Typography>
+								<Typography variant="h6" textAlign="center" color="primary">
+									Total Cost:
+								</Typography>
+								<Typography variant="h6" textAlign="center">
+									$10000
+								</Typography>
+							</Box>
+						)}
+						{isLoading ? (
+							<Skeleton height="200px" />
+						) : (
+							<Box padding="20px 30px 0">
+								<Typography variant="h6" textAlign="center" color="primary">
+									Career Paths:
+								</Typography>
+								<List dense={true}>
+									{data?.careers.map((career) => {
+										return (
+											<ListItem>
+												<ListItemIcon>
+													<DoubleArrowIcon color="primary" />
+												</ListItemIcon>
+												<ListItemText primary={career} />
+											</ListItem>
+										);
+									})}
+								</List>
+							</Box>
+						)}
+						{isLoading ? (
+							<Skeleton height="200px" />
+						) : (
+							<Box padding="20px 30px 0">
+								<Typography variant="h6" textAlign="center" color="primary">
+									Facilities:
+								</Typography>
 								<List dense={true}>
 									<ListItem>
 										<ListItemIcon>
@@ -111,10 +151,7 @@ function Bootcamp() {
 												<CloseIcon color="error" />
 											)}
 										</ListItemIcon>
-										<ListItemText
-											primary="Housing"
-											sx={{ fontSize: "2rem !important" }}
-										/>
+										<ListItemText primary="Housing" />
 									</ListItem>
 									<ListItem>
 										<ListItemIcon>
@@ -124,10 +161,7 @@ function Bootcamp() {
 												<CloseIcon color="error" />
 											)}
 										</ListItemIcon>
-										<ListItemText
-											primary="Job Assistance"
-											sx={{ fontSize: "2rem !important" }}
-										/>
+										<ListItemText primary="Job Assistance" />
 									</ListItem>
 									<ListItem>
 										<ListItemIcon>
@@ -137,10 +171,7 @@ function Bootcamp() {
 												<CloseIcon color="error" />
 											)}
 										</ListItemIcon>
-										<ListItemText
-											primary="Job Gurantee"
-											sx={{ fontSize: "2rem !important" }}
-										/>
+										<ListItemText primary="Job Gurantee" />
 									</ListItem>
 									<ListItem>
 										<ListItemIcon>
@@ -150,14 +181,11 @@ function Bootcamp() {
 												<CloseIcon color="error" />
 											)}
 										</ListItemIcon>
-										<ListItemText
-											primary="Accepts GI Bill"
-											sx={{ fontSize: "2rem !important" }}
-										/>
+										<ListItemText primary="Accepts GI Bill" />
 									</ListItem>
 								</List>
-							)}
-						</Box>
+							</Box>
+						)}
 					</Card>
 					<Card sx={{ margin: "20px 0" }}>
 						<Typography
@@ -176,7 +204,11 @@ function Bootcamp() {
 							{reviews?.map((review) => {
 								return (
 									<div key={review.id}>
-										<ReviewModel title={review.title} text={review.text} />
+										<ReviewModel
+											title={review.title}
+											text={review.text}
+											rating={review.rating}
+										/>
 									</div>
 								);
 							})}
