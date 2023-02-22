@@ -1,16 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { FormControlLabel, IconButton, Switch } from "@mui/material";
+import {
+	FormControlLabel,
+	IconButton,
+	Menu,
+	MenuItem,
+	Skeleton,
+	Switch,
+} from "@mui/material";
 import styled from "@emotion/styled";
 import ModeContext from "../../contexts/ModeContext";
 import { Link } from "react-router-dom";
 import TopDrawer from "./TopDrawer";
 import Hamburger from "hamburger-react";
 import { useNavigate } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 	width: 62,
@@ -64,6 +72,10 @@ function Navbar() {
 
 	const [scrolled, setScrolled] = useState(false);
 
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	const [loading, setLoading] = useState(true);
+
 	window.addEventListener("scroll", () => {
 		if (window.scrollY > 40) {
 			setScrolled(true);
@@ -71,6 +83,26 @@ function Navbar() {
 			setScrolled(false);
 		}
 	});
+
+	useEffect(() => {
+		if (localStorage.getItem("DevTrain-Token")) {
+			setIsLoggedIn(true);
+		}
+		setLoading(false);
+	}, []);
+
+	const [anchorEl, setAnchorEl] = useState(null);
+	const handleMenu = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const handleLogout = () => {
+		localStorage.removeItem("DevTrain-Token");
+		navigate("/login");
+	};
 
 	const [drawerState, setDrawerState] = useState(false);
 
@@ -85,7 +117,12 @@ function Navbar() {
 					: { bgcolor: "navBg.main" }
 			}
 		>
-			<TopDrawer drawerState={drawerState} setDrawerState={setDrawerState} />
+			<TopDrawer
+				drawerState={drawerState}
+				setDrawerState={setDrawerState}
+				isLoggedIn={isLoggedIn}
+				handleLogout={handleLogout}
+			/>
 			<Toolbar>
 				<Typography
 					variant="h6"
@@ -105,22 +142,60 @@ function Navbar() {
 						checked={darkMode}
 						control={<MaterialUISwitch />}
 					/>
-					{/* <Link to="/bootcamps"> */}
+
 					<Button variant="text" onClick={() => navigate("/bootcamps")}>
 						Browse Bootcamps
 					</Button>
-					{/* </Link> */}
-					<Button
-						variant="contained"
-						color="primary"
-						// onClick={() => navigate("/login")}
-					>
-						Login
-					</Button>
+
+					{loading ? (
+						<Skeleton />
+					) : (
+						<>
+							{" "}
+							{isLoggedIn ? (
+								<>
+									<IconButton
+										color="primary"
+										sx={{ fontSize: "2rem" }}
+										onClick={handleMenu}
+									>
+										<AccountCircleIcon fontSize="large" />
+									</IconButton>
+									<Menu
+										anchorEl={anchorEl}
+										anchorOrigin={{
+											vertical: "top",
+											horizontal: "right",
+										}}
+										keepMounted
+										transformOrigin={{
+											vertical: "top",
+											horizontal: "right",
+										}}
+										open={Boolean(anchorEl)}
+										onClose={handleClose}
+										sx={{ top: "40px" }}
+									>
+										<MenuItem onClick={() => navigate("/profile")}>
+											Profile
+										</MenuItem>
+										<MenuItem onClick={handleLogout}> Logout </MenuItem>
+									</Menu>
+								</>
+							) : (
+								<Button
+									variant="contained"
+									color="primary"
+									onClick={() => navigate("/login")}
+								>
+									Login
+								</Button>
+							)}
+						</>
+					)}
 				</Box>
 				<Box display={{ xs: "block", md: "none" }}>
 					<IconButton onClick={() => setDrawerState(!drawerState)}>
-						{/* <MenuIcon /> */}
 						<Hamburger
 							toggled={drawerState}
 							toggle={setDrawerState}

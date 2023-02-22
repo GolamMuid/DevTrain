@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 function BootcampCard({ id, name, averageCost, description, slug, rating }) {
 	const BootcampCard = styled(Card)(({ theme }) => ({
-		marginBottom: "20px",
 		maxWidth: "100%",
 		backgroundImage: "none",
 		"& img": {

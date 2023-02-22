@@ -17,7 +17,7 @@ const ListContainer = styled(List)(({ theme }) => ({
 	},
 }));
 
-function TopDrawer({ drawerState, setDrawerState }) {
+function TopDrawer({ drawerState, setDrawerState, isLoggedIn, handleLogout }) {
 	const { handleDarkMode, darkMode } = useContext(ModeContext);
 
 	return (
@@ -34,7 +34,21 @@ function TopDrawer({ drawerState, setDrawerState }) {
 					<ListItem>
 						<Link to="/bootcamps">Browse Bootcamp </Link>
 					</ListItem>
-					<ListItem> Profile </ListItem>
+					{isLoggedIn ? (
+						<>
+							<ListItem>
+								<Link to="/profile"> Profile </Link>
+							</ListItem>
+							<ListItem onClick={handleLogout} sx={{ cursor: "pointer" }}>
+								Logout
+							</ListItem>
+						</>
+					) : (
+						<ListItem>
+							<Link to="/login"> Login </Link>
+						</ListItem>
+					)}
+
 					<ListItem>
 						<FormControlLabel
 							onChange={handleDarkMode}

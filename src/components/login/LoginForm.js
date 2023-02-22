@@ -54,6 +54,10 @@ function LoginForm() {
 			if (response?.data?.success) {
 				navigate("/");
 				setLoading(false);
+				window.localStorage.setItem(
+					"DevTrain-Token",
+					JSON.stringify(response.data.token)
+				);
 			} else {
 				alert("falied");
 				setLoading(false);

@@ -6,6 +6,7 @@ import BootcampsPage from "../pages/bootcamps/BootcampsPage";
 import Homepage from "../pages/homepage/Homepage";
 import LoginPage from "../pages/login/LoginPage";
 import ManageBootcampPage from "../pages/manageBootcamp/ManageBootcampPage";
+import ProfilePage from "../pages/profile/ProfilePage";
 
 const router = createBrowserRouter([
 	{
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
 			{
 				path: "/manage-bootcamp",
 				element: <ManageBootcampPage />,
+			},
+			{
+				path: "/profile",
+				element: <ProfilePage />,
 			},
 		],
 	},
