@@ -118,7 +118,7 @@ function Bootcamps() {
 						</Paper>
 					</Box>
 					<Box padding="0px 10px">
-						<Box>
+						<Box display="flex" flexDirection="column" gap="20px">
 							{isLoading ? (
 								<>
 									<Skeleton height="200px" />
@@ -137,6 +137,7 @@ function Bootcamps() {
 											description={bootcamp.description}
 											rating={bootcamp.rating}
 											slug={bootcamp.slug}
+											careers={bootcamp.careers}
 										/>
 									);
 								})

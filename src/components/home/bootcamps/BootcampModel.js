@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function BootcampModel(props) {
-	const { name, averageCost, description, id, slug } = props;
+	const { name, averageCost, description, id, slug, careers } = props;
 
 	const navigate = useNavigate();
 
@@ -43,6 +43,16 @@ function BootcampModel(props) {
 				<Typography variant="h6" color="text.secondary" marginBottom="10px">
 					${averageCost}
 				</Typography>
+				{careers?.map((career) => {
+					return (
+						<Chip
+							label={career}
+							color="chipPrimary"
+							size="small"
+							sx={{ color: "primary.main", margin: "0 6px 6px 0" }}
+						/>
+					);
+				})}
 				<Typography
 					fontFamily="Roboto"
 					fontWeight="400"

@@ -1,11 +1,19 @@
 import styled from "@emotion/styled";
-import { Button, Card, Rating, Typography } from "@mui/material";
+import { Button, Card, Chip, Rating, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { BsStarFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-function BootcampCard({ id, name, averageCost, description, slug, rating }) {
+function BootcampCard({
+	id,
+	name,
+	averageCost,
+	description,
+	slug,
+	rating,
+	careers,
+}) {
 	const BootcampCard = styled(Card)(({ theme }) => ({
 		maxWidth: "100%",
 		backgroundImage: "none",
@@ -56,6 +64,16 @@ function BootcampCard({ id, name, averageCost, description, slug, rating }) {
 								readOnly
 							/> */}
 						</Typography>
+						{careers?.map((career) => {
+							return (
+								<Chip
+									label={career}
+									color="chipPrimary"
+									size="small"
+									sx={{ color: "primary.main", margin: "0 6px 6px 0" }}
+								/>
+							);
+						})}
 						<Typography
 							fontFamily="Roboto"
 							fontWeight="400"

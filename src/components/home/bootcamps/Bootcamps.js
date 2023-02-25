@@ -78,6 +78,7 @@ function Bootcamps() {
 									averageCost={bootcamp.averageCost}
 									description={bootcamp.description}
 									slug={bootcamp.slug}
+									careers={bootcamp.careers}
 								/>
 							);
 						})
