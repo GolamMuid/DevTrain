@@ -1,4 +1,5 @@
 import {
+	Button,
 	Card,
 	List,
 	ListItem,
@@ -14,15 +15,34 @@ import CourseModel from "./CourseModel";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import ReviewModel from "./ReviewModel";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import styled from "@emotion/styled";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+
+const StyledBox = styled(Box)(({ theme }) => ({
+	marginBottom: "20px",
+	display: "flex",
+	justifyContent: "center",
+	"& a": {
+		color: "#FF4E26",
+	},
+}));
 
 function Bootcamp() {
 	const { slug } = useParams();
 	const lastHyphenIndex = slug.lastIndexOf("-");
 	const id = slug.substring(lastHyphenIndex + 1);
+
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	useEffect(() => {
+		if (localStorage.hasOwnProperty("DevTrain-Token")) setLoggedIn(true);
+	}, [loggedIn]);
 
 	const [data, isLoading, isError, error, isSuccess, refetch] = useFetch(
 		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
@@ -39,7 +59,44 @@ function Bootcamp() {
 		"courses"
 	);
 
-	console.log(data);
+	const [loading, setLoading] = useState(false);
+
+	const [userInfo, setUserInfo] = useState({});
+
+	const [enrollment, setEnrollment] = useState(false);
+
+	console.log(userInfo);
+
+	const getData = async () => {
+		let TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+
+		setLoading(true);
+		try {
+			const response = await axios.get(
+				`https://devtrain.cyclic.app/api/v1/auth/me`,
+				{
+					headers: {
+						Authorization: `Bearer ${TOKEN}`,
+					},
+				}
+			);
+			setUserInfo(response.data.data);
+			if (userInfo?.bootcamps.includes(id)) {
+				setEnrollment(false);
+				setLoading(false);
+			} else {
+				setEnrollment(true);
+				setLoading(false);
+			}
+		} catch (error) {
+			console.error(error);
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		if (loggedIn) getData();
+	}, []);
 
 	return (
 		<Container>
@@ -214,6 +271,22 @@ function Bootcamp() {
 							})}
 						</Box>
 					</Card>
+					<StyledBox>
+						{loading ? (
+							<Skeleton height="16px" />
+						) : !loggedIn ? (
+							<Box>
+								To enroll in a bootcamp, <Link to="/login"> Log In </Link>{" "}
+								first.
+							</Box>
+						) : userInfo?.role === "publisher" ? (
+							<Box> Bootcamp enrollment is for users only </Box>
+						) : enrollment ? (
+							<Button variant="contained"> Enroll </Button>
+						) : (
+							<Box> You have already enrolled in this bootcamp </Box>
+						)}
+					</StyledBox>
 				</Box>
 			</Box>
 		</Container>

@@ -1,9 +1,8 @@
-import { Card, Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import ReviewModel from "./ReviewModel";
 import RubberBand from "react-reveal/RubberBand";
-import Slide from "react-reveal/Slide";
 
 function Reviews() {
 	return (
@@ -40,15 +39,9 @@ function Reviews() {
 					rowGap="20px"
 					padding={{ xs: "0px 20px", md: "0px" }}
 				>
-					<Slide bottom delay={200}>
-						<ReviewModel />
-					</Slide>
-					<Slide bottom delay={300}>
-						<ReviewModel />
-					</Slide>
-					<Slide bottom delay={400}>
-						<ReviewModel />
-					</Slide>
+					<ReviewModel />
+					<ReviewModel />
+					<ReviewModel />
 				</Box>
 			</Container>
 		</Box>

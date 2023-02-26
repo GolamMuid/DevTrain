@@ -37,7 +37,8 @@ function BootcampCard({
 		<BootcampCard>
 			<Box
 				display="grid"
-				gridTemplateColumns={{ xs: "1fr", md: "1fr 2fr" }}
+				gridTemplateColumns={{ xs: "1fr", md: "2fr 3fr" }}
+				gap={{ xs: "0", md: "20px" }}
 				padding="10px"
 			>
 				<Box
@@ -78,7 +79,7 @@ function BootcampCard({
 							fontFamily="Roboto"
 							fontWeight="400"
 							fontSize={{ xs: "1rem" }}
-							lineHeight="1"
+							lineHeight="1.2"
 							color="text.primary"
 							padding="10px 0"
 						>

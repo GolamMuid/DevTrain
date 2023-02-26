@@ -39,7 +39,7 @@ function RegisterForm() {
 
 	const [snackbarState, setSnackbarState] = useState({
 		state: false,
-		type: "",
+		type: "info",
 		message: "",
 	});
 
@@ -61,15 +61,14 @@ function RegisterForm() {
 				});
 				setLoading(false);
 			} else {
-				alert("falied");
+				setSnackbarState({
+					state: true,
+					type: "error",
+					message: "Something went wrong",
+				});
 				setLoading(false);
 			}
 		} catch (error) {
-			// setSnackbarState({
-			//   state: true,
-			//   type: "error",
-			//   message: {error?.},
-			// });
 			console.log(error?.response);
 			setLoading(false);
 		}
@@ -85,7 +84,7 @@ function RegisterForm() {
 
 	return (
 		<Box>
-			<Typography variant="h4" textAlign="center" padding="20px 0 10px">
+			<Typography variant="h5" textAlign="center" padding="20px 0 10px">
 				Register
 			</Typography>
 			<form onSubmit={handleSubmit(onSubmit)}>

@@ -37,7 +37,7 @@ function LoginForm() {
 
 	const [snackbarState, setSnackbarState] = useState({
 		state: false,
-		type: "",
+		type: "info",
 		message: "",
 	});
 
@@ -78,7 +78,7 @@ function LoginForm() {
 
 	return (
 		<Box>
-			<Typography variant="h4" textAlign="center" padding="20px 0 10px">
+			<Typography variant="h5" textAlign="center" padding="20px 0 10px">
 				Login
 			</Typography>
 			<form onSubmit={handleSubmit(onSubmit)}>

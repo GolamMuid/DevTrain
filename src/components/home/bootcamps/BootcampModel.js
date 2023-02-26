@@ -57,9 +57,9 @@ function BootcampModel(props) {
 					fontFamily="Roboto"
 					fontWeight="400"
 					fontSize={{ xs: "1rem" }}
-					lineHeight="1"
+					lineHeight="1.2"
 					color="text.primary"
-					marginBottom="10px"
+					margin="10px 0"
 				>
 					{description}
 				</Typography>

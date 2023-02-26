@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from "@mui/material";
+import { Paper, Tab, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useState } from "react";
@@ -37,6 +37,10 @@ function Login() {
 						padding: "20px",
 					}}
 				>
+					<Typography variant="h3" textAlign="center" color="primary">
+						{" "}
+						DevTrain{" "}
+					</Typography>
 					<Tabs
 						value={value}
 						onChange={handleChange}

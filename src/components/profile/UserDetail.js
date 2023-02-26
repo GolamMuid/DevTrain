@@ -10,9 +10,6 @@ function UserDetail() {
 
 	const [userInfo, setUserInfo] = useState({});
 
-	console.log(TOKEN);
-	console.log(userInfo);
-
 	const getData = async () => {
 		setLoading(true);
 		try {
