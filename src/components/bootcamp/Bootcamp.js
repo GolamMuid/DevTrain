@@ -18,7 +18,6 @@ import ReviewModel from "./ReviewModel";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -44,17 +43,17 @@ function Bootcamp() {
 		if (localStorage.hasOwnProperty("DevTrain-Token")) setLoggedIn(true);
 	}, [loggedIn]);
 
-	const [data, isLoading, isError, error, isSuccess, refetch] = useFetch(
+	const [data, isLoading] = useFetch(
 		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
 		"bootcamps"
 	);
 
-	const [reviews, reviewLoading, reviewError] = useFetch(
+	const [reviews, reviewLoading] = useFetch(
 		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}/reviews`,
 		"reviews"
 	);
 
-	const [courses, courseLoading, courseError] = useFetch(
+	const [courses, courseLoading] = useFetch(
 		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}/courses`,
 		"courses"
 	);
@@ -63,13 +62,10 @@ function Bootcamp() {
 
 	const [userInfo, setUserInfo] = useState({});
 
-	const [enrollment, setEnrollment] = useState(false);
-
-	console.log(userInfo);
+	const [enrollment, setEnrollment] = useState("");
 
 	const getData = async () => {
 		let TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
-
 		setLoading(true);
 		try {
 			const response = await axios.get(
@@ -81,11 +77,11 @@ function Bootcamp() {
 				}
 			);
 			setUserInfo(response.data.data);
-			if (userInfo?.bootcamps.includes(id)) {
-				setEnrollment(false);
+			if (response.data.data?.bootcamps.includes(id)) {
+				setEnrollment("enrolled");
 				setLoading(false);
 			} else {
-				setEnrollment(true);
+				setEnrollment("notEnrolled");
 				setLoading(false);
 			}
 		} catch (error) {
@@ -96,7 +92,28 @@ function Bootcamp() {
 
 	useEffect(() => {
 		if (loggedIn) getData();
-	}, []);
+	}, [loggedIn]);
+
+	const handleEnroll = async () => {
+		let TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+
+		try {
+			await axios.post(
+				`https://devtrain.cyclic.app/api/v1/auth/${userInfo._id}/bootcamps`,
+				{
+					bootcampId: id,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${TOKEN}`,
+					},
+				}
+			);
+			getData();
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Container>
@@ -179,9 +196,9 @@ function Bootcamp() {
 									Career Paths:
 								</Typography>
 								<List dense={true}>
-									{data?.careers.map((career) => {
+									{data?.careers.map((career, i) => {
 										return (
-											<ListItem>
+											<ListItem key={i}>
 												<ListItemIcon>
 													<DoubleArrowIcon color="primary" />
 												</ListItemIcon>
@@ -257,7 +274,7 @@ function Bootcamp() {
 							Reviews
 						</Typography>
 						<Box padding="10px 20px">
-							{courseLoading && <Skeleton height="300px" />}
+							{reviewLoading && <Skeleton height="300px" />}
 							{reviews?.map((review) => {
 								return (
 									<div key={review.id}>
@@ -281,10 +298,14 @@ function Bootcamp() {
 							</Box>
 						) : userInfo?.role === "publisher" ? (
 							<Box> Bootcamp enrollment is for users only </Box>
-						) : enrollment ? (
-							<Button variant="contained"> Enroll </Button>
+						) : enrollment === "notEnrolled" ? (
+							<Button variant="contained" onClick={handleEnroll}>
+								Enroll
+							</Button>
+						) : enrollment === "enrolled" ? (
+							<Box> Already Enrolled </Box>
 						) : (
-							<Box> You have already enrolled in this bootcamp </Box>
+							""
 						)}
 					</StyledBox>
 				</Box>

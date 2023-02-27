@@ -65,9 +65,10 @@ function BootcampCard({
 								readOnly
 							/> */}
 						</Typography>
-						{careers?.map((career) => {
+						{careers?.map((career, i) => {
 							return (
 								<Chip
+									key={i}
 									label={career}
 									color="chipPrimary"
 									size="small"

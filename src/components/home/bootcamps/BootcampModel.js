@@ -6,8 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 function BootcampModel(props) {
 	const { name, averageCost, description, id, slug, careers } = props;
 
-	const navigate = useNavigate();
-
 	const BootcampModel = styled(Paper)(({ theme }) => ({
 		backgroundImage: "none",
 		"& div:nth-of-type(1)": {
@@ -43,9 +41,10 @@ function BootcampModel(props) {
 				<Typography variant="h6" color="text.secondary" marginBottom="10px">
 					${averageCost}
 				</Typography>
-				{careers?.map((career) => {
+				{careers?.map((career, i) => {
 					return (
 						<Chip
+							key={i}
 							label={career}
 							color="chipPrimary"
 							size="small"
