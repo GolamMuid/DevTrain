@@ -1,10 +1,10 @@
 import { Box, Button, Skeleton, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
-function UserEdit(props) {
-  const { userInfo, setSnackbarState, getData, setField } = props;
+function UserPasswordEdit(props) {
+  const { setField, setSnackbarState } = props;
 
   const [editLoading, setEditLoading] = useState(false);
 
@@ -20,7 +20,7 @@ function UserEdit(props) {
     setEditLoading(true);
     try {
       const response = await axios.put(
-        "https://devtrain.cyclic.app/api/v1/auth/updatedetails",
+        "https://devtrain.cyclic.app/api/v1/auth/updatepassword",
         data,
         {
           headers: {
@@ -34,9 +34,8 @@ function UserEdit(props) {
         setSnackbarState({
           state: true,
           type: "success",
-          message: "Profile Updated Successfully",
+          message: "Password Updated Successfully",
         });
-        getData();
       } else {
         setSnackbarState({
           state: true,
@@ -59,25 +58,30 @@ function UserEdit(props) {
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h6"> Name : </Typography>
+        <Typography variant="h6"> Current Password : </Typography>
         <TextField
           variant="outlined"
           size="small"
+          type="password"
           sx={{ marginBottom: "10px" }}
-          defaultValue={userInfo?.name}
-          {...register("name", { required: "Name cannot be empty" })}
-          error={Boolean(errors.name)}
-          helperText={errors.name?.message}
+          {...register("currentPassword", {
+            required: "Password cannot be empty",
+          })}
+          error={Boolean(errors.currentPassword)}
+          helperText={errors.currentPassword?.message}
         />
-        <Typography variant="h6"> Email : </Typography>
+        <Typography variant="h6"> New Password : </Typography>
         <TextField
           variant="outlined"
           size="small"
-          defaultValue={userInfo?.email}
-          {...register("email", { required: "Email cannot be empty" })}
-          error={Boolean(errors.email)}
-          helperText={errors.email?.message}
+          type="password"
+          {...register("newPassword", { required: "Password cannot be empty" })}
+          error={Boolean(errors.newPassword)}
+          helperText={errors.newPassword?.message}
         />
+        <Typography variant="body2">
+          Password has to be minimum 6 digits
+        </Typography>
         {editLoading ? (
           <Skeleton height="50px" />
         ) : (
@@ -93,4 +97,4 @@ function UserEdit(props) {
   );
 }
 
-export default UserEdit;
+export default UserPasswordEdit;
