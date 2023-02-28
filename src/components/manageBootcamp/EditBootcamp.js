@@ -12,7 +12,9 @@ import {
 	Box,
 	IconButton,
 } from "@mui/material";
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
 
@@ -36,7 +38,11 @@ const GridBox = styled(Box)(({ theme }) => ({
 
 // Custom Components
 
-function EditBootcamp({ editBootcamp, setEditBootcamp }) {
+function EditBootcamp(props) {
+	const { editBootcamp, setEditBootcamp, bootcampData, setSnackbarState } =
+		props;
+
+	console.log(bootcampData);
 	const handleClose = () => setEditBootcamp(false);
 
 	const {
@@ -45,8 +51,47 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 		handleSubmit,
 	} = useForm();
 
-	const onSubmit = (data) => {
+	const [loading, setLoading] = useState(false);
+
+	const onSubmit = async (data) => {
 		console.log(data);
+		const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+		setLoading(true);
+		try {
+			const response = await axios.put(
+				`https://devtrain.cyclic.app//api/v1/bootcamps/${bootcampData._id}`,
+				data,
+				{
+					headers: {
+						Authorization: `Bearer ${TOKEN}`,
+					},
+				}
+			);
+			console.log(response);
+			if (response?.data?.success) {
+				setLoading(false);
+				setSnackbarState({
+					state: true,
+					type: "success",
+					message: "Bootcamp Updated Successfully",
+				});
+			} else {
+				setSnackbarState({
+					state: true,
+					type: "error",
+					message: response.data.error,
+				});
+				setLoading(false);
+			}
+		} catch (error) {
+			setSnackbarState({
+				state: true,
+				type: "error",
+				message: "Something went wrong, try again",
+			});
+			console.log(error);
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -86,6 +131,7 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 									fullWidth
 									size="small"
 									placeholder="Bootcamp Name"
+									defaultValue={bootcampData?.name}
 									{...register("name", { required: "Name is required" })}
 									error={Boolean(errors.name)}
 									helperText={errors.name?.message}
@@ -98,6 +144,7 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 									size="small"
 									multiline
 									rows={4}
+									defaultValue={bootcampData?.description}
 									placeholder="Description (What you offer, Basic idea about the bootcamp etc) 500 characters max"
 									{...register("description", { maxLength: 500 })}
 									error={Boolean(errors.description)}
@@ -108,7 +155,7 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 								/>
 							</InputBox>
 
-							<InputBox>
+							{/* <InputBox>
 								<Typography variant="body1">Contact Number :</Typography>
 								<TextField
 									type="number"
@@ -125,13 +172,15 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 										errors.contactNo ? "Insert a valid phone number" : ""
 									}
 								/>
-							</InputBox>
+							</InputBox> */}
+
 							<InputBox>
 								<Typography variant="body1">Email :</Typography>
 								<TextField
 									fullWidth
 									size="small"
 									placeholder="Contact Email"
+									defaultValue={bootcampData?.email}
 									{...register("email", { pattern: /^\S+@\S+$/i })}
 									error={Boolean(errors.email)}
 									helperText={
@@ -145,6 +194,7 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 									fullWidth
 									size="small"
 									placeholder="Website URL"
+									defaultValue={bootcampData?.website}
 									{...register("website")}
 								/>
 							</InputBox>
@@ -160,21 +210,39 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 								<Box display="flex" justifyContent="space-between">
 									<Box>
 										<FormControlLabel
-											control={<Checkbox />}
+											control={
+												<Checkbox
+													defaultChecked={bootcampData?.careers?.includes(
+														"Web Development"
+													)}
+												/>
+											}
 											label="Web Development"
 											value="Web Development"
 											sx={{ width: "100%" }}
 											{...register("careers")}
 										/>
 										<FormControlLabel
-											control={<Checkbox />}
+											control={
+												<Checkbox
+													defaultChecked={bootcampData?.careers?.includes(
+														"Mobile Development"
+													)}
+												/>
+											}
 											label="Mobile Development"
 											value="Mobile Development"
 											sx={{ width: "100%" }}
 											{...register("careers")}
 										/>
 										<FormControlLabel
-											control={<Checkbox />}
+											control={
+												<Checkbox
+													defaultChecked={bootcampData?.careers?.includes(
+														"UI/UX"
+													)}
+												/>
+											}
 											label="UI/UX"
 											value="UI/UX"
 											sx={{ width: "100%" }}
@@ -183,21 +251,39 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 									</Box>
 									<Box>
 										<FormControlLabel
-											control={<Checkbox />}
+											control={
+												<Checkbox
+													defaultChecked={bootcampData?.careers?.includes(
+														"Data Science"
+													)}
+												/>
+											}
 											label="Data Science"
 											value="Data Science"
 											sx={{ width: "100%" }}
 											{...register("careers")}
 										/>
 										<FormControlLabel
-											control={<Checkbox />}
+											control={
+												<Checkbox
+													defaultChecked={bootcampData?.careers?.includes(
+														"Business"
+													)}
+												/>
+											}
 											label="Business"
 											value="Business"
 											sx={{ width: "100%" }}
 											{...register("careers")}
 										/>
 										<FormControlLabel
-											control={<Checkbox />}
+											control={
+												<Checkbox
+													defaultChecked={bootcampData?.careers?.includes(
+														"Other"
+													)}
+												/>
+											}
 											label="Other"
 											value="Other"
 											sx={{ width: "100%" }}
@@ -209,7 +295,13 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 							<GridBox>
 								<Typography variant="body1">Housing</Typography>
 								<FormControlLabel
-									control={<Switch name="housing" {...register("housing")} />}
+									control={
+										<Switch
+											name="housing"
+											defaultChecked={bootcampData.housing}
+											{...register("housing")}
+										/>
+									}
 								/>
 							</GridBox>
 							<GridBox>
@@ -218,6 +310,7 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 									control={
 										<Switch
 											name="jobAssistance"
+											defaultChecked={bootcampData.jobAssistance}
 											{...register("jobAssistance")}
 										/>
 									}
@@ -227,14 +320,24 @@ function EditBootcamp({ editBootcamp, setEditBootcamp }) {
 								<Typography variant="body1">Job Guarantee</Typography>
 								<FormControlLabel
 									control={
-										<Switch name="jobGuarantee" {...register("jobGuarantee")} />
+										<Switch
+											name="jobGuarantee"
+											defaultChecked={bootcampData.jobGuarantee}
+											{...register("jobGuarantee")}
+										/>
 									}
 								/>
 							</GridBox>
 							<GridBox>
 								<Typography variant="body1">Accepts GI Bill</Typography>
 								<FormControlLabel
-									control={<Switch name="acceptGi" {...register("acceptGi")} />}
+									control={
+										<Switch
+											name="acceptGi"
+											defaultChecked={bootcampData.acceptGi}
+											{...register("acceptGi")}
+										/>
+									}
 								/>
 							</GridBox>
 						</Box>

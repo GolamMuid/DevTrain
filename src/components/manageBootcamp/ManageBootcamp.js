@@ -4,6 +4,7 @@ import {
 	Button,
 	Card,
 	IconButton,
+	Skeleton,
 	Table,
 	TableBody,
 	TableCell,
@@ -18,6 +19,9 @@ import { useState } from "react";
 import EditBootcamp from "./EditBootcamp";
 import AddCourse from "./AddCourse";
 import EditCourse from "./EditCourse";
+import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import Toast from "../../layouts/toast/Toast";
 
 // Custom Components
 
@@ -37,6 +41,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // Custom Components
 
 function ManageBootcamp() {
+	// Snackbar States
+
+	const [snackbarState, setSnackbarState] = useState({
+		state: false,
+		type: "info",
+		message: "",
+	});
+	const close = () => setSnackbarState(false);
+
+	// Snackbar States
+
+	// bootcampData fetch
+
+	const { id } = useParams();
+
+	const [bootcampData, isLoading] = useFetch(
+		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
+		"bootcampSingle"
+	);
+
+	// bootcampData fetch
+
 	// States for Modals
 
 	const [editBootcamp, setEditBootcamp] = useState(false);
@@ -53,9 +79,13 @@ function ManageBootcamp() {
 				gap="20px"
 			>
 				<Box padding={{ xs: "0px 20px", md: "0" }} marginBottom="20px">
-					<Typography variant="h4" style={{ padding: "20px 0" }}>
-						DevWorks Bootcamp
-					</Typography>
+					{isLoading ? (
+						<Skeleton height="30px" />
+					) : (
+						<Typography variant="h4" style={{ padding: "20px 0" }}>
+							{bootcampData.name}
+						</Typography>
+					)}
 					<Box>
 						<img
 							src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
@@ -71,48 +101,77 @@ function ManageBootcamp() {
 						/>
 					</Box>
 
-					<Typography variant="body1" style={{ padding: "10px 0" }}>
-						Devworks is a full stack JavaScript Bootcamp located in the heart of
-						Boston that focuses on the technologies you need to get a high
-						paying job as a web developer
-					</Typography>
-					<Box padding="20px 0">
-						<Table size="small">
-							<TableBody>
-								<StyledTableRow>
-									<TableCell> Average Cost per course </TableCell>
-									<TableCell align="right"> $50 </TableCell>
-								</StyledTableRow>
-								<StyledTableRow>
-									<TableCell> Total Cost </TableCell>
-									<TableCell align="right"> $50 </TableCell>
-								</StyledTableRow>
-								<StyledTableRow>
-									<TableCell> Housing </TableCell>
-									<TableCell align="right"> Yes </TableCell>
-								</StyledTableRow>
-								<StyledTableRow>
-									<TableCell> Job Assistance </TableCell>
-									<TableCell align="right"> No </TableCell>
-								</StyledTableRow>
-								<StyledTableRow>
-									<TableCell> Job Gurantee </TableCell>
-									<TableCell align="right"> Yes </TableCell>
-								</StyledTableRow>
-								<StyledTableRow>
-									<TableCell> Accepts GI Bill </TableCell>
-									<TableCell align="right"> Yes </TableCell>
-								</StyledTableRow>
-							</TableBody>
-						</Table>
-					</Box>
-					<Button
-						variant="contained"
-						sx={{ margin: "auto", display: "block" }}
-						onClick={() => setEditBootcamp(true)}
-					>
-						Edit Bootcamp
-					</Button>
+					{isLoading ? (
+						<Skeleton height="50px" />
+					) : (
+						<Typography variant="body1" style={{ padding: "10px 0" }}>
+							{bootcampData.description}
+						</Typography>
+					)}
+					{isLoading ? (
+						<Skeleton height="100px" />
+					) : (
+						<Box padding="20px 0">
+							<Table size="small">
+								<TableBody>
+									<StyledTableRow>
+										<TableCell> Average Cost per course </TableCell>
+										<TableCell align="right">
+											{" "}
+											${bootcampData.averageCost}{" "}
+										</TableCell>
+									</StyledTableRow>
+									<StyledTableRow>
+										<TableCell> Total Cost </TableCell>
+										<TableCell align="right"> $50 </TableCell>
+									</StyledTableRow>
+									<StyledTableRow>
+										<TableCell> Housing </TableCell>
+										{bootcampData.housing ? (
+											<TableCell align="right"> Yes </TableCell>
+										) : (
+											<TableCell align="right"> No </TableCell>
+										)}
+									</StyledTableRow>
+									<StyledTableRow>
+										<TableCell> Job Assistance </TableCell>
+										{bootcampData.jobAssistance ? (
+											<TableCell align="right"> Yes </TableCell>
+										) : (
+											<TableCell align="right"> No </TableCell>
+										)}
+									</StyledTableRow>
+									<StyledTableRow>
+										<TableCell> Job Gurantee </TableCell>
+										{bootcampData.jobGurantee ? (
+											<TableCell align="right"> Yes </TableCell>
+										) : (
+											<TableCell align="right"> No </TableCell>
+										)}
+									</StyledTableRow>
+									<StyledTableRow>
+										<TableCell> Accepts GI Bill </TableCell>
+										{bootcampData.acceptGi ? (
+											<TableCell align="right"> Yes </TableCell>
+										) : (
+											<TableCell align="right"> No </TableCell>
+										)}
+									</StyledTableRow>
+								</TableBody>
+							</Table>
+						</Box>
+					)}
+					{isLoading ? (
+						<Skeleton height="50px" />
+					) : (
+						<Button
+							variant="contained"
+							sx={{ margin: "auto", display: "block" }}
+							onClick={() => setEditBootcamp(true)}
+						>
+							Edit Bootcamp
+						</Button>
+					)}
 				</Box>
 				<Card
 					sx={{
@@ -178,12 +237,19 @@ function ManageBootcamp() {
 					</Box>
 				</Card>
 			</Box>
-			<EditBootcamp
-				editBootcamp={editBootcamp}
-				setEditBootcamp={setEditBootcamp}
-			/>
-			<AddCourse addCourse={addCourse} setAddCourse={setAddCourse} />
-			<EditCourse editCourse={editCourse} setEditCourse={setEditCourse} />
+			{!isLoading && (
+				<>
+					<EditBootcamp
+						editBootcamp={editBootcamp}
+						setEditBootcamp={setEditBootcamp}
+						bootcampData={bootcampData}
+						setSnackbarState={setSnackbarState}
+					/>
+					<AddCourse addCourse={addCourse} setAddCourse={setAddCourse} />
+					<EditCourse editCourse={editCourse} setEditCourse={setEditCourse} />
+				</>
+			)}
+			<Toast snackbarState={snackbarState} close={close} />
 		</Container>
 	);
 }

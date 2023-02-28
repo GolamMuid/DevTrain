@@ -29,7 +29,7 @@ const router = createBrowserRouter([
 				element: <AddBootcampPage />,
 			},
 			{
-				path: "/manage-bootcamp",
+				path: "/manage-bootcamp/:id",
 				element: <ManageBootcampPage />,
 			},
 			{
