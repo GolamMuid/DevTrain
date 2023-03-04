@@ -22,6 +22,9 @@ import EditCourse from "./EditCourse";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Toast from "../../layouts/toast/Toast";
+import { useEffect } from "react";
+import DeleteCourse from "./DeleteCourse";
+import DeleteBootcamp from "./DeleteBootcamp";
 
 // Custom Components
 
@@ -56,20 +59,54 @@ function ManageBootcamp() {
 
 	const { id } = useParams();
 
-	const [bootcampData, isLoading] = useFetch(
-		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
-		"bootcampSingle"
-	);
+	const [bootcampData, isLoading, isError, error, isSuccess, refetch] =
+		useFetch(
+			`https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
+			"bootcampSingle"
+		);
 
 	// bootcampData fetch
 
-	// States for Modals
+	// States and functions for Modals
+
+	const [courseAvailable, setCourseAvailable] = useState(false);
+
+	useEffect(() => {
+		if (bootcampData?.courses?.length > 0) {
+			setCourseAvailable(true);
+		}
+	}, [bootcampData]);
 
 	const [editBootcamp, setEditBootcamp] = useState(false);
-	const [addCourse, setAddCourse] = useState(false);
-	const [editCourse, setEditCourse] = useState(false);
+	const [viewDeleteBootcamp, setViewDeleteBootcamp] = useState(false);
 
-	// States for Modals
+	const [viewAddCourse, setViewAddCourse] = useState(false);
+	const [viewEditCourse, setViewEditCourse] = useState(false);
+	const [viewDeleteCourse, setViewDeleteCourse] = useState(false);
+
+	const [refetchState, setRefetchState] = useState(false);
+
+	useEffect(() => {
+		refetch();
+	}, [refetchState]);
+
+	const [courseId, setCourseId] = useState({});
+
+	const handleEditCourse = (course) => {
+		setCourseId(course);
+		setViewEditCourse(true);
+	};
+
+	const handleDeleteCourse = (course) => {
+		setCourseId(course);
+		setViewDeleteCourse(true);
+	};
+
+	const handleDeleteBootcamps = (bootcampData) => {
+		setViewDeleteBootcamp(true);
+	};
+
+	// States and functions for Modals
 
 	return (
 		<Container>
@@ -164,15 +201,26 @@ function ManageBootcamp() {
 					{isLoading ? (
 						<Skeleton height="50px" />
 					) : (
-						<Button
-							variant="contained"
-							sx={{ margin: "auto", display: "block" }}
-							onClick={() => setEditBootcamp(true)}
-						>
-							Edit Bootcamp
-						</Button>
+						<>
+							<Button
+								variant="contained"
+								sx={{ margin: "auto", marginBottom: "20px", display: "block" }}
+								onClick={() => setEditBootcamp(true)}
+							>
+								Edit Bootcamp
+							</Button>
+							<Button
+								variant="contained"
+								sx={{ margin: "auto", display: "block" }}
+								onClick={handleDeleteBootcamps}
+								color="error"
+							>
+								Delete Bootcamp
+							</Button>
+						</>
 					)}
 				</Box>
+
 				<Card
 					sx={{
 						height: "fit-content",
@@ -190,63 +238,100 @@ function ManageBootcamp() {
 					>
 						Courses
 					</Typography>
-					<Box padding="10px">
-						<Typography variant="h6" textAlign="center" padding="20px">
-							You haven't added any course yet
-						</Typography>
+					{isLoading ? (
+						<Box padding="0 10px">
+							<Skeleton height="200px" />
+						</Box>
+					) : (
+						<Box padding="10px">
+							{!courseAvailable && (
+								<Typography variant="h6" textAlign="center" padding="20px">
+									You haven't added any course yet
+								</Typography>
+							)}
 
-						<Box
-							display="flex"
-							alignItems="center"
-							justifyContent="space-between"
-							gap="20px"
-						>
-							<Typography variant="h6">Front End Web Development</Typography>
-							<Box display="flex">
-								<IconButton
-									color="infoBlue"
-									onClick={() => setEditCourse(true)}
+							{courseAvailable &&
+								bootcampData?.courses?.map((course, index) => {
+									return (
+										<Box
+											key={index}
+											display="flex"
+											alignItems="center"
+											justifyContent="space-between"
+											gap="20px"
+										>
+											<Typography variant="h6">
+												{index + 1}. {course.title}
+											</Typography>
+											<Box display="flex">
+												<IconButton
+													color="infoBlue"
+													onClick={() => handleEditCourse(course)}
+												>
+													{<RiEditLine />}
+												</IconButton>
+												<IconButton
+													color="error"
+													onClick={() => handleDeleteCourse(course)}
+												>
+													{<MdDeleteOutline />}
+												</IconButton>
+											</Box>
+										</Box>
+									);
+								})}
+
+							<Box padding="20px 20px 10px">
+								<Button
+									variant="contained"
+									sx={{ margin: "auto", display: "block" }}
+									onClick={() => setViewAddCourse(true)}
 								>
-									{" "}
-									{<RiEditLine />}{" "}
-								</IconButton>
-								<IconButton color="error"> {<MdDeleteOutline />} </IconButton>
+									Add Course
+								</Button>
 							</Box>
 						</Box>
-						<Box
-							display="flex"
-							alignItems="center"
-							justifyContent="space-between"
-							gap="20px"
-						>
-							<Typography variant="h6">Full Stack Web Development</Typography>
-							<Box display="flex">
-								<IconButton color="infoBlue"> {<RiEditLine />} </IconButton>
-								<IconButton color="error"> {<MdDeleteOutline />} </IconButton>
-							</Box>
-						</Box>
-						<Box padding="20px 20px 10px">
-							<Button
-								variant="contained"
-								sx={{ margin: "auto", display: "block" }}
-								onClick={() => setAddCourse(true)}
-							>
-								Add Course
-							</Button>
-						</Box>
-					</Box>
+					)}
 				</Card>
 			</Box>
 			{!isLoading && (
 				<>
+					<DeleteBootcamp
+						viewDeleteBootcamp={viewDeleteBootcamp}
+						setViewDeleteBootcamp={setViewDeleteBootcamp}
+						bootcampData={bootcampData}
+					/>
+
 					<EditBootcamp
 						editBootcamp={editBootcamp}
 						setEditBootcamp={setEditBootcamp}
 						bootcampData={bootcampData}
 						setSnackbarState={setSnackbarState}
 					/>
-					<AddCourse addCourse={addCourse} setAddCourse={setAddCourse} />
-					<EditCourse editCourse={editCourse} setEditCourse={setEditCourse} />
+
+					<AddCourse
+						viewAddCourse={viewAddCourse}
+						setViewAddCourse={setViewAddCourse}
+						bootcampData={bootcampData}
+						refetchState={refetchState}
+						setRefetchState={setRefetchState}
+						setSnackbarState={setSnackbarState}
+					/>
+
+					<EditCourse
+						viewEditCourse={viewEditCourse}
+						setViewEditCourse={setViewEditCourse}
+						courseId={courseId}
+					/>
+
+					<DeleteCourse
+						viewDeleteCourse={viewDeleteCourse}
+						setViewDeleteCourse={setViewDeleteCourse}
+						courseId={courseId}
+						refetchState={refetchState}
+						setRefetchState={setRefetchState}
+						setSnackbarState={setSnackbarState}
+					/>
 				</>
 			)}
 			<Toast snackbarState={snackbarState} close={close} />

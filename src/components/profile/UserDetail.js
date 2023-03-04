@@ -1,4 +1,4 @@
-import { Avatar, Paper } from "@mui/material";
+import { Avatar, Paper, Skeleton } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -87,7 +87,11 @@ function UserDetail() {
 				</Box>
 				<Toast snackbarState={snackbarState} close={close} />
 			</Paper>
-			<BootcampInfo userInfo={userInfo} />
+			{loading ? (
+				<Skeleton height="100px" />
+			) : (
+				<BootcampInfo userInfo={userInfo} />
+			)}
 		</Box>
 	);
 }

@@ -16,8 +16,11 @@ import {
 	FormHelperText,
 } from "@mui/material";
 import React from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
+import { PuffLoader } from "react-spinners";
+import useFetch from "../../hooks/useFetch";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
@@ -31,9 +34,20 @@ const InputBox = styled(Box)(({ theme }) => ({
 
 // Custom Components
 
-function EditCourse({ editCourse, setEditCourse }) {
-	const handleClose = () => setEditCourse(false);
+function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
+	console.log(courseId);
+	// const [courseData, isLoading, , , , refetch] = useFetch(
+	// 	`https://devtrain.cyclic.app/api/v1/courses/${courseId}`,
+	// 	"courseData"
+	// );
 
+	// useEffect(() => {
+	// 	refetch();
+	// }, [viewEditCourse]);
+
+	// console.log("first", courseData);
+
+	const handleClose = () => setViewEditCourse(false);
 	const {
 		register,
 		formState: { errors },
@@ -46,7 +60,7 @@ function EditCourse({ editCourse, setEditCourse }) {
 	};
 	return (
 		<Dialog
-			open={editCourse}
+			open={viewEditCourse}
 			TransitionComponent={Transition}
 			keepMounted
 			onClose={handleClose}
@@ -62,7 +76,11 @@ function EditCourse({ editCourse, setEditCourse }) {
 				<IconButton onClick={handleClose}> {<RxCross2 />} </IconButton>
 			</Box>
 
+			{/* {isLoading ? (
+				<PuffLoader />
+			) : ( */}
 			<DialogContent>
+				{courseId?.title}
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Box
 						display="grid"
@@ -81,7 +99,9 @@ function EditCourse({ editCourse, setEditCourse }) {
 									fullWidth
 									size="small"
 									placeholder="Course Title"
+									defaultValue={courseId?.title}
 									{...register("title", {
+										onChange: (e) => {},
 										required: "Course Title is required",
 									})}
 									error={Boolean(errors.title)}
@@ -201,6 +221,7 @@ function EditCourse({ editCourse, setEditCourse }) {
 					</Button>
 				</form>
 			</DialogContent>
+			{/* )} */}
 		</Dialog>
 	);
 }

@@ -59,7 +59,7 @@ function EditBootcamp(props) {
 		setLoading(true);
 		try {
 			const response = await axios.put(
-				`https://devtrain.cyclic.app//api/v1/bootcamps/${bootcampData._id}`,
+				`https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampData._id}`,
 				data,
 				{
 					headers: {

@@ -15,9 +15,12 @@ import {
 	MenuItem,
 	FormHelperText,
 } from "@mui/material";
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
+import { BeatLoader } from "react-spinners";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
@@ -31,8 +34,21 @@ const InputBox = styled(Box)(({ theme }) => ({
 
 // Custom Components
 
-function AddCourse({ addCourse, setAddCourse }) {
-	const handleClose = () => setAddCourse(false);
+function AddCourse(props) {
+	const {
+		viewAddCourse,
+		setViewAddCourse,
+		bootcampData,
+		refetchState,
+		setRefetchState,
+		setSnackbarState,
+	} = props;
+
+	const bootcampId = bootcampData?.id;
+
+	const handleClose = () => setViewAddCourse(false);
+
+	const [loading, setLoading] = useState(false);
 
 	const {
 		register,
@@ -41,13 +57,47 @@ function AddCourse({ addCourse, setAddCourse }) {
 		handleSubmit,
 	} = useForm();
 
-	const onSubmit = (data) => {
+	const onSubmit = async (data) => {
+		const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+		setLoading(true);
+		try {
+			const response = await axios.post(
+				`https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampId}/courses`,
+				data,
+				{
+					headers: {
+						Authorization: `Bearer ${TOKEN}`,
+					},
+				}
+			);
+			console.log(response);
+			if (response?.data?.success) {
+				setLoading(false);
+				setRefetchState(!refetchState);
+				handleClose();
+				setSnackbarState({
+					state: true,
+					type: "success",
+					message: "Course Added Successfully",
+				});
+			} else {
+				alert("falied");
+				setLoading(false);
+			}
+		} catch (error) {
+			setSnackbarState({
+				state: true,
+				type: "error",
+				message: "Invalid Credentials",
+			});
+			setLoading(false);
+		}
 		console.log(data);
 	};
 
 	return (
 		<Dialog
-			open={addCourse}
+			open={viewAddCourse}
 			TransitionComponent={Transition}
 			keepMounted
 			onClose={handleClose}
@@ -194,14 +244,25 @@ function AddCourse({ addCourse, setAddCourse }) {
 
 						{/* Right Column ends */}
 					</Box>
-					<Button
-						type="submit"
-						variant="contained"
-						size="small"
-						sx={{ display: "block", margin: "20px 0 0px auto" }}
-					>
-						Edit
-					</Button>
+					{loading ? (
+						<Button
+							type="submit"
+							variant="contained"
+							size="small"
+							sx={{ display: "block", margin: "20px 0 0px auto" }}
+						>
+							<BeatLoader size={13} color="#fff" />
+						</Button>
+					) : (
+						<Button
+							type="submit"
+							variant="contained"
+							size="small"
+							sx={{ display: "block", margin: "20px 0 0px auto" }}
+						>
+							Add
+						</Button>
+					)}
 				</form>
 			</DialogContent>
 		</Dialog>
