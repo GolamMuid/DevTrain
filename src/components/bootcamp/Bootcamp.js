@@ -64,6 +64,8 @@ function Bootcamp() {
 
 	const [enrollment, setEnrollment] = useState("");
 
+	const [reviewed, setReviewed] = useState();
+
 	const getData = async () => {
 		let TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
 		setLoading(true);
@@ -77,7 +79,8 @@ function Bootcamp() {
 				}
 			);
 			setUserInfo(response.data.data);
-			if (response.data.data?.bootcamps.includes(id)) {
+			// if (response.data.data?.bootcamps.includes(id)) {
+			if (response.data.data?.bootcamps.some((obj) => obj.id === id)) {
 				setEnrollment("enrolled");
 				setLoading(false);
 			} else {
