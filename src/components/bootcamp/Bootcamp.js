@@ -39,6 +39,8 @@ function Bootcamp() {
 
 	const [loggedIn, setLoggedIn] = useState(false);
 
+	const [recall, setRecall] = useState(false);
+
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("DevTrain-Token")) setLoggedIn(true);
 	}, [loggedIn]);
@@ -63,8 +65,6 @@ function Bootcamp() {
 	const [userInfo, setUserInfo] = useState({});
 
 	const [enrollment, setEnrollment] = useState("");
-
-	const [reviewed, setReviewed] = useState();
 
 	const getData = async () => {
 		let TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
@@ -201,7 +201,7 @@ function Bootcamp() {
 								<List dense={true}>
 									{data?.careers.map((career, i) => {
 										return (
-											<ListItem key={i}>
+											<ListItem key={Math.random()}>
 												<ListItemIcon>
 													<DoubleArrowIcon color="primary" />
 												</ListItemIcon>
@@ -306,7 +306,14 @@ function Bootcamp() {
 								Enroll
 							</Button>
 						) : enrollment === "enrolled" ? (
-							<Box> Already Enrolled </Box>
+							<Link to={`/review/${data.id}`}>
+								<Button
+									variant="contained"
+									//  onClick={handleEnroll}
+								>
+									Write a review
+								</Button>
+							</Link>
 						) : (
 							""
 						)}

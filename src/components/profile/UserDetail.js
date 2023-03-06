@@ -98,7 +98,6 @@ function UserDetail() {
 				<Skeleton height="100px" />
 			) : (
 				<>
-					{" "}
 					{userInfo?.role === "publisher" ? (
 						<BootcampInfo userInfo={userInfo} />
 					) : userInfo?.role === "user" ? (

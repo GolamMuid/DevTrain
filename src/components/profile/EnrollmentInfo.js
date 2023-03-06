@@ -1,12 +1,26 @@
 import { Button, Card, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BootcampCard from "../bootcamps/BootcampCard";
+import ReviewModal from "./ReviewModal";
 
 function EnrollmentInfo({ userInfo }) {
 	const enrolledBootcamps = userInfo?.bootcamps;
+	const userId = userInfo?._id;
+	console.log(userId);
 	const navigate = useNavigate();
+
+	const [reviewModal, setReviewModal] = useState(false);
+
+	const [reviewInfo, setReviewInfo] = useState({});
+
+	const handleReview = (id, name) => {
+		setReviewModal(true);
+		setReviewInfo({ name: name, id: id });
+		console.log(name);
+	};
 
 	return (
 		<Box>
@@ -32,6 +46,13 @@ function EnrollmentInfo({ userInfo }) {
 									description={bootcamp.description}
 									slug={bootcamp.slug}
 								/>
+								<Button
+									variant="contained"
+									sx={{ display: "block", margin: "10px auto" }}
+									onClick={() => handleReview(bootcamp.id, bootcamp.name)}
+								>
+									Write a review
+								</Button>
 							</Box>
 						);
 					})}
@@ -50,14 +71,12 @@ function EnrollmentInfo({ userInfo }) {
 					</Button>
 				</>
 			)}
-
-			{/* <BootcampCard
-							id={bootcamp.id}
-							name={bootcamp.name}
-							averageCost={bootcamp.averageCost}
-							description={bootcamp.description}
-							slug={bootcamp.slug}
-						/> */}
+			<ReviewModal
+				reviewModal={reviewModal}
+				setReviewModal={setReviewModal}
+				reviewInfo={reviewInfo}
+				userId={userId}
+			/>
 		</Box>
 	);
 }
