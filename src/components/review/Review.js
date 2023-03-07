@@ -5,13 +5,18 @@ import { BeatLoader } from "react-spinners";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import useUserInfo from "../../hooks/useUserInfo";
+import { useEffect } from "react";
+import useFetch from "../../hooks/useFetch";
 
 function Review() {
 	const { id } = useParams();
+	const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
 
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
+	const [reviewed, setReviewed] = useState({});
 	const [review, setReview] = useState({
 		title: "",
 		text: "",
@@ -27,9 +32,43 @@ function Review() {
 		});
 	};
 
-	const handleSubmit = async () => {
+	const [userInfo] = useUserInfo();
+	const [reviews] = useFetch(
+		`https://devtrain.cyclic.app/api/v1/bootcamps/${id}/reviews`,
+		"reviewData"
+	);
+
+	useEffect(() => {
+		const previousReview = reviews?.find((obj) => obj.user === userInfo?._id);
+		if (previousReview) {
+			setReview(previousReview);
+			setReviewed(true);
+		}
+	}, [userInfo]);
+
+	const handleEdit = async () => {
 		setLoading(true);
-		const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+		try {
+			const response = await axios.put(
+				`https://devtrain.cyclic.app/api/v1/reviews/${review._id}`,
+				review,
+				{
+					headers: {
+						Authorization: `Bearer ${TOKEN}`,
+					},
+				}
+			);
+			console.log(response);
+			if (response?.data?.success) {
+				setLoading(false);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handlePost = async () => {
+		setLoading(true);
 		try {
 			const response = await axios.post(
 				`https://devtrain.cyclic.app/api/v1/bootcamps/${id}/reviews`,
@@ -84,7 +123,6 @@ function Review() {
 					display: "flex",
 					alignItems: "center",
 					gap: "10px",
-					// justifyContent: "center",
 				}}
 			>
 				<Typography variant="h6"> Rating: </Typography>
@@ -97,8 +135,11 @@ function Review() {
 						<BeatLoader size={13} color="#fff" />
 					</Button>
 				) : (
-					<Button variant="contained" onClick={handleSubmit}>
-						Post Review
+					<Button
+						variant="contained"
+						onClick={reviewed ? handleEdit : handlePost}
+					>
+						Submit
 					</Button>
 				)}
 			</Box>

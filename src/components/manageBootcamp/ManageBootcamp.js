@@ -90,15 +90,15 @@ function ManageBootcamp() {
 		refetch();
 	}, [refetchState]);
 
-	const [courseId, setCourseId] = useState({});
+	const [courseInfo, setCourseInfo] = useState({});
 
 	const handleEditCourse = (course) => {
-		setCourseId(course);
+		setCourseInfo(course);
 		setViewEditCourse(true);
 	};
 
 	const handleDeleteCourse = (course) => {
-		setCourseId(course);
+		setCourseInfo(course);
 		setViewDeleteCourse(true);
 	};
 
@@ -321,13 +321,13 @@ function ManageBootcamp() {
 					<EditCourse
 						viewEditCourse={viewEditCourse}
 						setViewEditCourse={setViewEditCourse}
-						courseId={courseId}
+						courseInfo={courseInfo}
 					/>
 
 					<DeleteCourse
 						viewDeleteCourse={viewDeleteCourse}
 						setViewDeleteCourse={setViewDeleteCourse}
-						courseId={courseId}
+						courseInfo={courseInfo}
 						refetchState={refetchState}
 						setRefetchState={setRefetchState}
 						setSnackbarState={setSnackbarState}

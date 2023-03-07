@@ -15,11 +15,11 @@ import {
 	MenuItem,
 	FormHelperText,
 } from "@mui/material";
-import React from "react";
-import { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
-import { PuffLoader } from "react-spinners";
 import useFetch from "../../hooks/useFetch";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -34,10 +34,18 @@ const InputBox = styled(Box)(({ theme }) => ({
 
 // Custom Components
 
-function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
-	console.log(courseId);
+function EditCourse({ viewEditCourse, setViewEditCourse, courseInfo }) {
+	const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+	const [course, setCourse] = useState(courseInfo);
+	useEffect(() => {
+		setCourse(courseInfo);
+	}, [courseInfo]);
+
+	console.log("🚀 ~ file: EditCourse.js:38 ~ EditCourse ~ course:", course);
+	// console.log("🚀 ~ file: EditCourse.js:38 ~ EditCourse ~ course:", courseInfo);
+
 	// const [courseData, isLoading, , , , refetch] = useFetch(
-	// 	`https://devtrain.cyclic.app/api/v1/courses/${courseId}`,
+	// 	`https://devtrain.cyclic.app/api/v1/courses/${courseInfo?._id}`,
 	// 	"courseData"
 	// );
 
@@ -45,7 +53,11 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 	// 	refetch();
 	// }, [viewEditCourse]);
 
-	// console.log("first", courseData);
+	// useEffect(() => {
+	// 	setCourse(courseData);
+	// }, [courseData]);
+
+	const [loading, setLoading] = useState(false);
 
 	const handleClose = () => setViewEditCourse(false);
 	const {
@@ -55,9 +67,32 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 		handleSubmit,
 	} = useForm();
 
-	const onSubmit = (data) => {
-		console.log(data);
+	const onSubmit = async (data) => {
+		setLoading(true);
+
+		try {
+			const response = await axios.put(
+				`https://devtrain.cyclic.app/api/v1/courses/${courseInfo?._id}`,
+				course,
+				{
+					headers: {
+						Authorization: `Bearer ${TOKEN}`,
+					},
+				}
+			);
+			console.log(response);
+			if (response?.data?.success) {
+				setLoading(false);
+				handleClose();
+			} else {
+				console.log(response);
+			}
+		} catch (error) {
+			console.log(error);
+			setLoading(false);
+		}
 	};
+
 	return (
 		<Dialog
 			open={viewEditCourse}
@@ -80,7 +115,6 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 				<PuffLoader />
 			) : ( */}
 			<DialogContent>
-				{courseId?.title}
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Box
 						display="grid"
@@ -99,9 +133,11 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 									fullWidth
 									size="small"
 									placeholder="Course Title"
-									defaultValue={courseId?.title}
+									defaultValue={course?.title}
 									{...register("title", {
-										onChange: (e) => {},
+										onChange: (e) => {
+											setCourse({ ...course, title: e.target.value });
+										},
 										required: "Course Title is required",
 									})}
 									error={Boolean(errors.title)}
@@ -114,7 +150,13 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 									fullWidth
 									size="small"
 									placeholder="Number of weeks"
-									{...register("weeks", { required: "Duration is required" })}
+									value={course?.weeks}
+									{...register("weeks", {
+										onChange: (e) => {
+											setCourse({ ...course, weeks: e.target.value });
+										},
+										required: "Duration is required",
+									})}
 									error={Boolean(errors.weeks)}
 									helperText={errors.weeks?.message}
 								/>
@@ -125,11 +167,15 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 									type="number"
 									fullWidth
 									size="small"
+									value={course?.tuition}
 									startAdornment={
 										<InputAdornment position="start">$</InputAdornment>
 									}
 									placeholder="Tuition in USD"
 									{...register("tuition", {
+										onChange: (e) => {
+											setCourse({ ...course, tuition: e.target.value });
+										},
 										required: "Tuition is required",
 									})}
 									error={Boolean(errors.tuition)}
@@ -154,8 +200,12 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 									size="small"
 									multiline
 									rows={4}
+									value={course.description}
 									placeholder="Basic information about the course within 500 characters"
 									{...register("description", {
+										onChange: (e) => {
+											setCourse({ ...course, description: e.target.value });
+										},
 										required: true,
 										maxLength: 500,
 									})}
@@ -175,8 +225,11 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 								</Typography>
 								<Controller
 									name="minimumSkill"
-									defaultValue=""
+									value="beginner"
 									control={control}
+									onChange={(e) => {
+										setCourse({ ...course, description: e.target.value });
+									}}
 									render={({ field }) => (
 										<TextField
 											select
@@ -201,7 +254,11 @@ function EditCourse({ viewEditCourse, setViewEditCourse, courseId }) {
 							</InputBox>
 							<InputBox>
 								<FormControlLabel
-									control={<Checkbox />}
+									control={
+										<Checkbox
+											defaultChecked={courseInfo.scholarshipAvailable}
+										/>
+									}
 									label="Scholarship Available"
 									sx={{ width: "100%" }}
 									{...register("scholarshipAvailable")}
