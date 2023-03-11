@@ -19,7 +19,7 @@ import { useState } from "react";
 import EditBootcamp from "./EditBootcamp";
 import AddCourse from "./AddCourse";
 import EditCourse from "./EditCourse";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Toast from "../../layouts/toast/Toast";
 import { useEffect } from "react";
@@ -44,6 +44,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // Custom Components
 
 function ManageBootcamp() {
+	const navigate = useNavigate();
+
 	// Snackbar States
 
 	const [snackbarState, setSnackbarState] = useState({
@@ -266,7 +268,7 @@ function ManageBootcamp() {
 											<Box display="flex">
 												<IconButton
 													color="infoBlue"
-													onClick={() => handleEditCourse(course)}
+													onClick={() => navigate(`/edit-course/${course._id}`)}
 												>
 													{<RiEditLine />}
 												</IconButton>
