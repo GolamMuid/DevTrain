@@ -33,10 +33,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 function Bootcamp() {
-  const { slug } = useParams();
-  const lastHyphenIndex = slug.lastIndexOf("-");
-  const id = slug.substring(lastHyphenIndex + 1);
-
+  const { id } = useParams();
+  
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [recall, setRecall] = useState(false);

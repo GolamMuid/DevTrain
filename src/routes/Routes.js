@@ -11,47 +11,47 @@ import ReviewPage from "../pages/review/ReviewPage";
 import EditCoursePage from "../pages/manageCourse/EditCoursePage";
 
 const router = createBrowserRouter([
-	{
-		element: <Main />,
-		children: [
-			{
-				path: "/",
-				element: <Homepage />,
-			},
-			{
-				path: "/bootcamps",
-				element: <BootcampsPage />,
-			},
-			{
-				path: "/bootcamps/:slug",
-				element: <BootcampPage />,
-			},
-			{
-				path: "/add-bootcamp",
-				element: <AddBootcampPage />,
-			},
-			{
-				path: "/manage-bootcamp/:id",
-				element: <ManageBootcampPage />,
-			},
-			{
-				path: "/edit-course/:id",
-				element: <EditCoursePage />,
-			},
-			{
-				path: "/review/:id",
-				element: <ReviewPage />,
-			},
-			{
-				path: "/profile",
-				element: <ProfilePage />,
-			},
-		],
-	},
-	{
-		path: "/login",
-		element: <LoginPage />,
-	},
+  {
+    element: <Main />,
+    children: [
+      {
+        path: "/",
+        element: <Homepage />,
+      },
+      {
+        path: "/bootcamps",
+        element: <BootcampsPage />,
+      },
+      {
+        path: "/bootcamps/:id",
+        element: <BootcampPage />,
+      },
+      {
+        path: "/add-bootcamp",
+        element: <AddBootcampPage />,
+      },
+      {
+        path: "/manage-bootcamp/:id",
+        element: <ManageBootcampPage />,
+      },
+      {
+        path: "/edit-course/:id",
+        element: <EditCoursePage />,
+      },
+      {
+        path: "/review/:id",
+        element: <ReviewPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
 ]);
 
 export default router;
