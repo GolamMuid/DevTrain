@@ -8,7 +8,6 @@ import LoginPage from "../pages/login/LoginPage";
 import ManageBootcampPage from "../pages/manageBootcamp/ManageBootcampPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import ReviewPage from "../pages/review/ReviewPage";
-import EditCoursePage from "../pages/manageCourse/EditCoursePage";
 
 const router = createBrowserRouter([
   {
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: "/manage-bootcamp/:id",
         element: <ManageBootcampPage />,
-      },
-      {
-        path: "/edit-course/:id",
-        element: <EditCoursePage />,
       },
       {
         path: "/review/:id",

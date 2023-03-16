@@ -25,6 +25,7 @@ import Toast from "../../layouts/toast/Toast";
 import { useEffect } from "react";
 import DeleteCourse from "./DeleteCourse";
 import DeleteBootcamp from "./DeleteBootcamp";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 // Custom Components
 
@@ -44,8 +45,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // Custom Components
 
 function ManageBootcamp() {
-  const navigate = useNavigate();
-
   // Snackbar States
 
   const [snackbarState, setSnackbarState] = useState({
@@ -79,6 +78,8 @@ function ManageBootcamp() {
     }
   }, [bootcampData]);
 
+  console.log(bootcampData);
+
   const [editBootcamp, setEditBootcamp] = useState(false);
   const [viewDeleteBootcamp, setViewDeleteBootcamp] = useState(false);
 
@@ -104,11 +105,17 @@ function ManageBootcamp() {
     setViewDeleteCourse(true);
   };
 
-  const handleDeleteBootcamps = (bootcampData) => {
+  const handleDeleteBootcamps = () => {
     setViewDeleteBootcamp(true);
   };
 
   // States and functions for Modals
+
+  //Image edit
+
+  const handleImage = () => {};
+
+  //Image edit
 
   return (
     <Container>
@@ -138,6 +145,20 @@ function ManageBootcamp() {
                 margin: "auto",
               }}
             />
+          </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            margin="10px"
+          >
+            <Button
+              variant="contained"
+              endIcon={<CameraAltIcon />}
+              onClick={handleImage}
+            >
+              Change Photo
+            </Button>
           </Box>
 
           {isLoading ? (

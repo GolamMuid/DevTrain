@@ -34,7 +34,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 function Bootcamp() {
   const { id } = useParams();
-  
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [recall, setRecall] = useState(false);
@@ -197,9 +197,9 @@ function Bootcamp() {
                   Career Paths:
                 </Typography>
                 <List dense={true}>
-                  {data?.careers.map((career, i) => {
+                  {data?.careers?.map((career, i) => {
                     return (
-                      <ListItem key={Math.random()}>
+                      <ListItem key={i}>
                         <ListItemIcon>
                           <DoubleArrowIcon color="primary" />
                         </ListItemIcon>

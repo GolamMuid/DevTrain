@@ -5,8 +5,11 @@ import * as animationData from "../../../assets/85362-coding.json";
 import { Button, Stack, Typography } from "@mui/material";
 import Container from "../../../layouts/container/Container";
 import Bounce from "react-reveal/Bounce";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Bounce bottom>
@@ -67,7 +70,12 @@ function Hero() {
               developer today
             </Typography>
             <Stack alignItems="start" padding="20px 0">
-              <Button variant="contained" size="large" color="primary">
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={() => navigate("/bootcamps")}
+              >
                 Enroll Now
               </Button>
             </Stack>
