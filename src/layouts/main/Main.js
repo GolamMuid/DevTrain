@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import ScrollFromStart from "../scroll/ScrollFromStart";
 
@@ -12,6 +13,7 @@ const Main = ({ children }) => {
       <ScrollFromStart />
       {children}
       <Outlet />
+      <Footer />
     </div>
   );
 };
