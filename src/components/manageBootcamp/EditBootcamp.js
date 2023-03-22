@@ -17,6 +17,7 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
+import { BeatLoader } from "react-spinners";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -39,8 +40,13 @@ const GridBox = styled(Box)(({ theme }) => ({
 // Custom Components
 
 function EditBootcamp(props) {
-  const { editBootcamp, setEditBootcamp, bootcampData, setSnackbarState } =
-    props;
+  const {
+    editBootcamp,
+    setEditBootcamp,
+    bootcampData,
+    setSnackbarState,
+    refetch,
+  } = props;
 
   const handleClose = () => setEditBootcamp(false);
 
@@ -74,6 +80,8 @@ function EditBootcamp(props) {
           type: "success",
           message: "Bootcamp Updated Successfully",
         });
+        refetch();
+        handleClose();
       } else {
         setSnackbarState({
           state: true,
@@ -343,14 +351,33 @@ function EditBootcamp(props) {
 
             {/* Right Column ends */}
           </Box>
-          <Button
+          {loading ? (
+            <Button
+              type="submit"
+              variant="contained"
+              size="small"
+              sx={{ display: "block", margin: "20px 0 0px auto" }}
+            >
+              <BeatLoader size={13} color="#fff" />
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              variant="contained"
+              size="small"
+              sx={{ display: "block", margin: "20px 0 0px auto" }}
+            >
+              Edit
+            </Button>
+          )}
+          {/* <Button
             type="submit"
             variant="contained"
             size="small"
             sx={{ display: "block", margin: "20px 0 0px auto" }}
           >
             Edit
-          </Button>
+          </Button> */}
         </form>
       </DialogContent>
     </Dialog>

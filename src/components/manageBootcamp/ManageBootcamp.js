@@ -113,7 +113,12 @@ function ManageBootcamp() {
 
   //Image edit
 
-  const handleImage = () => {};
+  const [image, setImage] = useState();
+
+  const handleImage = (e) => {
+    setImage(e.target);
+    console.log(image);
+  };
 
   //Image edit
 
@@ -155,8 +160,14 @@ function ManageBootcamp() {
             <Button
               variant="contained"
               endIcon={<CameraAltIcon />}
-              onClick={handleImage}
+              component="label"
             >
+              <input
+                hidden
+                accept="image/*"
+                type="file"
+                onClick={(e) => handleImage(e)}
+              />
               Change Photo
             </Button>
           </Box>
@@ -330,6 +341,7 @@ function ManageBootcamp() {
             setEditBootcamp={setEditBootcamp}
             bootcampData={bootcampData}
             setSnackbarState={setSnackbarState}
+            refetch={refetch}
           />
 
           <AddCourse
