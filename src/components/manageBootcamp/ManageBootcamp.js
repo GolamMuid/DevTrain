@@ -26,6 +26,8 @@ import { useEffect } from "react";
 import DeleteCourse from "./DeleteCourse";
 import DeleteBootcamp from "./DeleteBootcamp";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import axios from "axios";
+import { BeatLoader } from "react-spinners";
 
 // Custom Components
 
@@ -87,13 +89,9 @@ function ManageBootcamp() {
   const [viewEditCourse, setViewEditCourse] = useState(false);
   const [viewDeleteCourse, setViewDeleteCourse] = useState(false);
 
-  const [refetchState, setRefetchState] = useState(false);
-
-  useEffect(() => {
-    refetch();
-  }, [refetchState]);
-
   const [courseInfo, setCourseInfo] = useState({});
+
+  const [loading, setLoading] = useState(false);
 
   const handleEditCourse = (course) => {
     setCourseInfo(course);
@@ -113,12 +111,101 @@ function ManageBootcamp() {
 
   //Image edit
 
-  const [image, setImage] = useState();
+  const handleImage = async (e) => {
+    setLoading(true);
+    const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+    const selectedImage = e.target.files[0];
 
-  const handleImage = (e) => {
-    setImage(e.target);
-    console.log(image);
+    // Uploading image to imgbb
+
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    const url = `https://api.imgbb.com/1/upload?key=134180d4237568d4c654209eb72a24f3`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          console.log(imgData.data.url);
+          // imgUpload(image);
+          fetch(
+            `https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampData._id}`,
+            {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${TOKEN}`,
+              },
+              body: JSON.stringify({ photo: imgData.data.url }),
+            }
+          )
+            .then((res) => res.json())
+            .then((result) => {
+              if (result?.success) {
+                setLoading(false);
+                refetch();
+                setSnackbarState({
+                  state: true,
+                  type: "success",
+                  message: "Image Uploaded Successfully",
+                });
+              } else {
+                setLoading(false);
+                setSnackbarState({
+                  state: true,
+                  type: "error",
+                  message: "Something went wrong, Please try again",
+                });
+              }
+            });
+        }
+      });
   };
+
+  // const imgUpload = async (image) => {
+  //   console.log("fired");
+  //   const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
+  //   setLoading(true);
+  //   console.log(image);
+  //   try {
+  //     const response = await axios.put(
+  //       `https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampData._id}`,
+  //       { photo: image, housing: true },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${TOKEN}`,
+  //         },
+  //       }
+  //     );
+  //     console.log(response);
+  //     if (response?.data?.success) {
+  //       setLoading(false);
+  //       // setSnackbarState({
+  //       //   state: true,
+  //       //   type: "success",
+  //       //   message: "Bootcamp Updated Successfully",
+  //       // });
+  //       refetch();
+  //     } else {
+  //       // setSnackbarState({
+  //       //   state: true,
+  //       //   type: "error",
+  //       //   message: response.data.error,
+  //       // });
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     setSnackbarState({
+  //       state: true,
+  //       type: "error",
+  //       message: "Something went wrong, try again",
+  //     });
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
 
   //Image edit
 
@@ -138,38 +225,49 @@ function ManageBootcamp() {
             </Typography>
           )}
           <Box>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
-              alt="Bootcamp"
-              style={{
-                objectFit: "contain",
-                height: "100%",
-                width: "100%",
-                maxHeight: "300px",
-                padding: "20px 0",
-                margin: "auto",
-              }}
-            />
+            {isLoading ? (
+              <Skeleton height="300px" width="100%" />
+            ) : (
+              <img
+                src={bootcampData.photo}
+                alt="Bootcamp"
+                style={{
+                  objectFit: "contain",
+                  height: "100%",
+                  width: "100%",
+                  maxHeight: "300px",
+                  padding: "20px 0",
+                  margin: "auto",
+                }}
+              />
+            )}
           </Box>
+
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
             margin="10px"
           >
-            <Button
-              variant="contained"
-              endIcon={<CameraAltIcon />}
-              component="label"
-            >
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                onClick={(e) => handleImage(e)}
-              />
-              Change Photo
-            </Button>
+            {loading ? (
+              <Button variant="contained">
+                <BeatLoader size={13} color="#fff" />
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                endIcon={<CameraAltIcon />}
+                component="label"
+              >
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  onChange={(e) => handleImage(e)}
+                />
+                Change Photo
+              </Button>
+            )}
           </Box>
 
           {isLoading ? (
@@ -348,8 +446,7 @@ function ManageBootcamp() {
             viewAddCourse={viewAddCourse}
             setViewAddCourse={setViewAddCourse}
             bootcampData={bootcampData}
-            refetchState={refetchState}
-            setRefetchState={setRefetchState}
+            refetch={refetch}
             setSnackbarState={setSnackbarState}
           />
 
@@ -367,8 +464,7 @@ function ManageBootcamp() {
             viewDeleteCourse={viewDeleteCourse}
             setViewDeleteCourse={setViewDeleteCourse}
             courseInfo={courseInfo}
-            refetchState={refetchState}
-            setRefetchState={setRefetchState}
+            refetch={refetch}
             setSnackbarState={setSnackbarState}
           />
         </>

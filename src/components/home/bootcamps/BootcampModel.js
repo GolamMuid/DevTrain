@@ -4,7 +4,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function BootcampModel(props) {
-  const { name, averageCost, description, id, slug, careers } = props;
+  const { name, averageCost, description, id, careers, photo } = props;
 
   const BootcampModel = styled(Paper)(({ theme }) => ({
     backgroundImage: "none",
@@ -29,10 +29,7 @@ function BootcampModel(props) {
   return (
     <BootcampModel elevation={3}>
       <Box>
-        <img
-          src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
-          alt="Bootcamp"
-        />
+        <img src={photo} alt="Bootcamp" />
       </Box>
       <Box padding="10px 20px">
         <Typography variant="h5" color="text.primary">

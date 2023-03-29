@@ -39,9 +39,8 @@ function AddCourse(props) {
     viewAddCourse,
     setViewAddCourse,
     bootcampData,
-    refetchState,
-    setRefetchState,
     setSnackbarState,
+    refetch,
   } = props;
 
   const bootcampId = bootcampData?.id;
@@ -73,7 +72,7 @@ function AddCourse(props) {
       console.log(response);
       if (response?.data?.success) {
         setLoading(false);
-        setRefetchState(!refetchState);
+        refetch();
         handleClose();
         setSnackbarState({
           state: true,

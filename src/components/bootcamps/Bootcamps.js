@@ -1,13 +1,13 @@
 import {
-	Button,
-	Card,
-	Pagination,
-	Paper,
-	Skeleton,
-	Slider,
-	Stack,
-	TextField,
-	Typography,
+  Button,
+  Card,
+  Pagination,
+  Paper,
+  Skeleton,
+  Slider,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
@@ -16,141 +16,142 @@ import Container from "../../layouts/container/Container";
 import BootcampCard from "./BootcampCard";
 
 function Bootcamps() {
-	const [data, isLoading, isError, error, isSuccess, refetch] = useFetch(
-		"https://devtrain.cyclic.app/api/v1/bootcamps",
-		"bootcampCollection"
-	);
+  const [data, isLoading, isError, error, isSuccess, refetch] = useFetch(
+    "https://devtrain.cyclic.app/api/v1/bootcamps",
+    "bootcampCollection"
+  );
 
-	console.log(data);
+  console.log(data);
 
-	const [radiusValue, setRadiusValue] = useState(0);
-	const [zipValue, setZipValue] = useState(0);
-	const [cost, setCost] = useState([0, 20000]);
+  const [radiusValue, setRadiusValue] = useState(0);
+  const [zipValue, setZipValue] = useState(0);
+  const [cost, setCost] = useState([0, 20000]);
 
-	const handleRadiusChange = (event, newValue) => {
-		setRadiusValue(newValue);
-	};
+  const handleRadiusChange = (event, newValue) => {
+    setRadiusValue(newValue);
+  };
 
-	const handleCostChange = (event, newValue) => {
-		setCost(newValue);
-	};
+  const handleCostChange = (event, newValue) => {
+    setCost(newValue);
+  };
 
-	return (
-		<Box>
-			<Container>
-				<Box
-					padding="20px 0px"
-					display="grid"
-					gridTemplateColumns={{ xs: "1fr", md: "2fr 3fr" }}
-					gap="20px"
-				>
-					<Box padding="0px 10px">
-						<Paper sx={{ padding: "20px 10px", height: "fit-content" }}>
-							<Typography
-								variant="h4"
-								color="text.primary"
-								padding="10px 0"
-								textAlign="center"
-								backgroundImage="none"
-							>
-								Filter
-							</Typography>
-							<Box>
-								<Typography
-									variant="h6"
-									color="text.secondary"
-									padding="10px 0"
-								>
-									Search by radius
-								</Typography>
-								<Box padding="0px 20px 20px">
-									<Slider
-										getAriaLabel={() => "Temperature range"}
-										value={radiusValue}
-										onChange={handleRadiusChange}
-										valueLabelDisplay="auto"
-										step={10}
-										marks
-										min={0}
-										max={100}
-										// getAriaValueText={valuetext}
-									/>
-								</Box>
-								<Typography
-									variant="h6"
-									color="text.secondary"
-									padding="10px 0"
-								>
-									Search by Zipcode
-								</Typography>
-								<TextField
-									variant="standard"
-									size="small"
-									fullWidth
-									value={zipValue}
-									type="number"
-									onChange={(e) => setZipValue(e.target.value)}
-								/>
-								<Typography
-									variant="h6"
-									color="text.secondary"
-									padding="10px 0"
-								>
-									Search by costing
-								</Typography>
-								<Box padding="0px 20px 20px">
-									<Slider
-										getAriaLabel={() => "Temperature range"}
-										value={cost}
-										onChange={handleCostChange}
-										valueLabelDisplay="auto"
-										step={1000}
-										marks
-										min={0}
-										max={20000}
-										// getAriaValueText={valuetext}
-									/>
-								</Box>
-								<Stack alignItems="center">
-									<Button variant="contained"> Search </Button>
-								</Stack>
-							</Box>
-						</Paper>
-					</Box>
-					<Box padding="0px 10px">
-						<Box display="flex" flexDirection="column" gap="20px">
-							{isLoading ? (
-								<>
-									<Skeleton height="200px" />
-									<Skeleton height="200px" />
-									<Skeleton height="200px" />
-									<Skeleton height="200px" />
-								</>
-							) : (
-								data?.map((bootcamp) => {
-									return (
-										<BootcampCard
-											key={bootcamp.id}
-											id={bootcamp.id}
-											name={bootcamp.name}
-											averageCost={bootcamp.averageCost}
-											description={bootcamp.description}
-											rating={bootcamp.rating}
-											slug={bootcamp.slug}
-											careers={bootcamp.careers}
-										/>
-									);
-								})
-							)}
-							{/* <Box padding="10px" display="flex" justifyContent="center">
+  return (
+    <Box>
+      <Container>
+        <Box
+          padding="20px 0px"
+          display="grid"
+          gridTemplateColumns={{ xs: "1fr", md: "2fr 3fr" }}
+          gap="20px"
+        >
+          <Box padding="0px 10px">
+            <Paper sx={{ padding: "20px 10px", height: "fit-content" }}>
+              <Typography
+                variant="h4"
+                color="text.primary"
+                padding="10px 0"
+                textAlign="center"
+                backgroundImage="none"
+              >
+                Filter
+              </Typography>
+              <Box>
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
+                  padding="10px 0"
+                >
+                  Search by radius
+                </Typography>
+                <Box padding="0px 20px 20px">
+                  <Slider
+                    getAriaLabel={() => "Temperature range"}
+                    value={radiusValue}
+                    onChange={handleRadiusChange}
+                    valueLabelDisplay="auto"
+                    step={10}
+                    marks
+                    min={0}
+                    max={100}
+                    // getAriaValueText={valuetext}
+                  />
+                </Box>
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
+                  padding="10px 0"
+                >
+                  Search by Zipcode
+                </Typography>
+                <TextField
+                  variant="standard"
+                  size="small"
+                  fullWidth
+                  value={zipValue}
+                  type="number"
+                  onChange={(e) => setZipValue(e.target.value)}
+                />
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
+                  padding="10px 0"
+                >
+                  Search by costing
+                </Typography>
+                <Box padding="0px 20px 20px">
+                  <Slider
+                    getAriaLabel={() => "Temperature range"}
+                    value={cost}
+                    onChange={handleCostChange}
+                    valueLabelDisplay="auto"
+                    step={1000}
+                    marks
+                    min={0}
+                    max={20000}
+                    // getAriaValueText={valuetext}
+                  />
+                </Box>
+                <Stack alignItems="center">
+                  <Button variant="contained"> Search </Button>
+                </Stack>
+              </Box>
+            </Paper>
+          </Box>
+          <Box padding="0px 10px">
+            <Box display="flex" flexDirection="column" gap="20px">
+              {isLoading ? (
+                <>
+                  <Skeleton height="200px" />
+                  <Skeleton height="200px" />
+                  <Skeleton height="200px" />
+                  <Skeleton height="200px" />
+                </>
+              ) : (
+                data?.map((bootcamp) => {
+                  return (
+                    <BootcampCard
+                      key={bootcamp.id}
+                      id={bootcamp.id}
+                      name={bootcamp.name}
+                      averageCost={bootcamp.averageCost}
+                      description={bootcamp.description}
+                      rating={bootcamp.rating}
+                      slug={bootcamp.slug}
+                      careers={bootcamp.careers}
+                      photo={bootcamp.photo}
+                    />
+                  );
+                })
+              )}
+              {/* <Box padding="10px" display="flex" justifyContent="center">
                 <Pagination count={10} color="primary" />
               </Box> */}
-						</Box>
-					</Box>
-				</Box>
-			</Container>
-		</Box>
-	);
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+  );
 }
 
 export default Bootcamps;

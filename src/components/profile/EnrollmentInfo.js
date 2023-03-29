@@ -33,7 +33,7 @@ function EnrollmentInfo({ userInfo }) {
                   name={bootcamp.name}
                   averageCost={bootcamp.averageCost}
                   description={bootcamp.description}
-                  slug={bootcamp.slug}
+                  photo={bootcamp.photo}
                 />
               </Box>
             );

@@ -9,9 +9,9 @@ function BootcampCard({
   name,
   averageCost,
   description,
-  slug,
   rating,
   careers,
+  photo,
 }) {
   const BootcampCard = styled(Card)(({ theme }) => ({
     maxWidth: "100%",
@@ -47,10 +47,7 @@ function BootcampCard({
           justifyContent="center"
           padding={{ xs: "0 10px", md: "0" }}
         >
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
-            alt="Bootcamp"
-          />
+          <img src={photo} alt="Bootcamp" />
         </Box>
         <Box padding="10px">
           <Box paddingLeft="8px">

@@ -37,8 +37,6 @@ function Bootcamp() {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [recall, setRecall] = useState(false);
-
   useEffect(() => {
     if (localStorage.hasOwnProperty("DevTrain-Token")) setLoggedIn(true);
   }, [loggedIn]);
@@ -125,20 +123,23 @@ function Bootcamp() {
       >
         <Box padding={{ xs: "0px 10px", md: "0" }}>
           <Box display="flex" alignItems="center" justifyContent="center">
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/class.jpg`}
-              alt="Bootcamp"
-              style={{
-                objectFit: "contain",
-                height: "100%",
-                width: "100%",
-                maxHeight: "300px",
-              }}
-            />
+            {isLoading ? (
+              <Skeleton height="100px" width="100%" />
+            ) : (
+              <img
+                src={data?.photo}
+                alt="Bootcamp"
+                style={{
+                  objectFit: "contain",
+                  height: "100%",
+                  width: "100%",
+                  maxHeight: "300px",
+                }}
+              />
+            )}
           </Box>
           <Typography variant="h4" style={{ padding: "20px 0" }}>
-            {isLoading && <Skeleton height="50px" />}
-            {data?.name}
+            {isLoading ? <Skeleton height="50px" /> : <>{data?.name}</>}
           </Typography>
           <Typography variant="body1" style={{ padding: "10px 0" }}>
             {isLoading && <Skeleton height="70px" />}
