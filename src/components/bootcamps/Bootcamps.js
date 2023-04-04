@@ -135,10 +135,11 @@ function Bootcamps() {
                       name={bootcamp.name}
                       averageCost={bootcamp.averageCost}
                       description={bootcamp.description}
-                      rating={bootcamp.rating}
+                      rating={bootcamp.averageRating}
                       slug={bootcamp.slug}
                       careers={bootcamp.careers}
                       photo={bootcamp.photo}
+                      courses={bootcamp.courses}
                     />
                   );
                 })

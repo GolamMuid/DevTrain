@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Box, Button, Chip, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function BootcampModel(props) {
-  const { name, averageCost, description, id, careers, photo } = props;
+  const { name, averageCost, description, id, careers, photo, courses } = props;
 
   const BootcampModel = styled(Paper)(({ theme }) => ({
     backgroundImage: "none",
@@ -36,7 +36,7 @@ function BootcampModel(props) {
           {name}
         </Typography>
         <Typography variant="h6" color="text.secondary" marginBottom="10px">
-          ${averageCost}
+          ${averageCost * courses.length}
         </Typography>
         {careers?.map((career, i) => {
           return (

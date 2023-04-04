@@ -14,6 +14,8 @@ function Bootcamps() {
     "bootcampsHome"
   );
 
+  console.log(data);
+
   return (
     <Box marginBottom="80px">
       <Container>
@@ -80,6 +82,7 @@ function Bootcamps() {
                   slug={bootcamp.slug}
                   careers={bootcamp.careers}
                   photo={bootcamp.photo}
+                  courses={bootcamp.courses}
                 />
               );
             })

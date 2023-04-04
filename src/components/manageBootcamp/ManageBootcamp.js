@@ -19,14 +19,13 @@ import { useState } from "react";
 import EditBootcamp from "./EditBootcamp";
 import AddCourse from "./AddCourse";
 import EditCourse from "./EditCourse";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Toast from "../../layouts/toast/Toast";
 import { useEffect } from "react";
 import DeleteCourse from "./DeleteCourse";
 import DeleteBootcamp from "./DeleteBootcamp";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import axios from "axios";
 import { BeatLoader } from "react-spinners";
 
 // Custom Components
