@@ -1,6 +1,9 @@
 import {
   Button,
   Card,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
   Pagination,
   Paper,
   Skeleton,
@@ -14,6 +17,7 @@ import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Container from "../../layouts/container/Container";
 import BootcampCard from "./BootcampCard";
+import SearchIcon from "@mui/icons-material/Search";
 
 function Bootcamps() {
   const [data, isLoading, isError, error, isSuccess, refetch] = useFetch(
@@ -21,30 +25,32 @@ function Bootcamps() {
     "bootcampCollection"
   );
 
-  console.log(data);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [radiusValue, setRadiusValue] = useState(0);
-  const [zipValue, setZipValue] = useState(0);
-  const [cost, setCost] = useState([0, 20000]);
+  console.log(searchTerm);
 
-  const handleRadiusChange = (event, newValue) => {
-    setRadiusValue(newValue);
-  };
+  // const [radiusValue, setRadiusValue] = useState(0);
+  // const [zipValue, setZipValue] = useState(0);
+  // const [cost, setCost] = useState([0, 20000]);
 
-  const handleCostChange = (event, newValue) => {
-    setCost(newValue);
-  };
+  // const handleRadiusChange = (event, newValue) => {
+  //   setRadiusValue(newValue);
+  // };
+
+  // const handleCostChange = (event, newValue) => {
+  //   setCost(newValue);
+  // };
 
   return (
     <Box>
       <Container>
-        <Box
+        {/* <Box
           padding="20px 0px"
           display="grid"
           gridTemplateColumns={{ xs: "1fr", md: "2fr 3fr" }}
           gap="20px"
-        >
-          <Box padding="0px 10px">
+        > */}
+        {/* <Box padding="0px 10px">
             <Paper sx={{ padding: "20px 10px", height: "fit-content" }}>
               <Typography
                 variant="h4"
@@ -116,18 +122,38 @@ function Bootcamps() {
                 </Stack>
               </Box>
             </Paper>
-          </Box>
-          <Box padding="0px 10px">
-            <Box display="flex" flexDirection="column" gap="20px">
-              {isLoading ? (
-                <>
-                  <Skeleton height="200px" />
-                  <Skeleton height="200px" />
-                  <Skeleton height="200px" />
-                  <Skeleton height="200px" />
-                </>
-              ) : (
-                data?.map((bootcamp) => {
+          </Box> */}
+        <Box padding="0px 10px" marginBottom="40px">
+          <Box display="flex" flexDirection="column" gap="20px">
+            <OutlinedInput
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton edge="end">{<SearchIcon />}</IconButton>
+                </InputAdornment>
+              }
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search Bootcamps"
+            />
+            {isLoading ? (
+              <>
+                <Skeleton height="200px" />
+                <Skeleton height="200px" />
+                <Skeleton height="200px" />
+                <Skeleton height="200px" />
+              </>
+            ) : (
+              data
+                ?.filter((val) => {
+                  if (searchTerm === "") {
+                    return val;
+                  } else if (
+                    val.name.toLowerCase().includes(searchTerm.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((bootcamp) => {
                   return (
                     <BootcampCard
                       key={bootcamp.id}
@@ -143,13 +169,13 @@ function Bootcamps() {
                     />
                   );
                 })
-              )}
-              {/* <Box padding="10px" display="flex" justifyContent="center">
+            )}
+            {/* <Box padding="10px" display="flex" justifyContent="center">
                 <Pagination count={10} color="primary" />
               </Box> */}
-            </Box>
           </Box>
         </Box>
+        {/* </Box> */}
       </Container>
     </Box>
   );

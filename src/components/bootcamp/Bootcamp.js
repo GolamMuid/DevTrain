@@ -186,7 +186,7 @@ function Bootcamp() {
                   Total Cost:
                 </Typography>
                 <Typography variant="h6" textAlign="center">
-                  $10000
+                  ${data?.averageCost * courses?.length}
                 </Typography>
               </Box>
             )}
@@ -276,18 +276,31 @@ function Bootcamp() {
               Reviews
             </Typography>
             <Box padding="10px 20px">
-              {reviewLoading && <Skeleton height="300px" />}
-              {reviews?.map((review) => {
-                return (
-                  <div key={review.id}>
-                    <ReviewModel
-                      title={review.title}
-                      text={review.text}
-                      rating={review.rating}
-                    />
-                  </div>
-                );
-              })}
+              {reviewLoading ? (
+                <Skeleton height="300px" />
+              ) : (
+                <Box>
+                  {reviews?.length > 0 ? (
+                    <>
+                      {reviews?.map((review) => {
+                        return (
+                          <div key={review.id}>
+                            <ReviewModel
+                              title={review.title}
+                              text={review.text}
+                              rating={review.rating}
+                            />
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <Typography>
+                      There is no review for this bootcamp yet
+                    </Typography>
+                  )}
+                </Box>
+              )}
             </Box>
           </Card>
           <StyledBox>
