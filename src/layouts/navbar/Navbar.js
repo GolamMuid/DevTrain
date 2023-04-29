@@ -135,7 +135,7 @@ function Navbar() {
           color="text.primary"
           sx={{ flexGrow: 1 }}
         >
-          <Link to="/">News</Link>
+          <Link to="/">DevTrain</Link>
         </Typography>
         <Box
           display={{ xs: "none", md: "flex" }}
