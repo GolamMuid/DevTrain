@@ -39,6 +39,7 @@ function BootcampInfo(userInfo) {
               averageCost={bootcamp.averageCost}
               description={bootcamp.description}
               photo={bootcamp.photo}
+              courses={bootcamp.courses}
             />
           </Card>
           <Box padding="20px">

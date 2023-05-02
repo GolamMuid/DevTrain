@@ -56,7 +56,7 @@ function BootcampCard({
               {name}
             </Typography>
             <Typography variant="h6" color="text.secondary" marginBottom="10px">
-              ${averageCost * courses.length}
+              ${averageCost * courses?.length}
             </Typography>
             <Typography color="warning.main">
               <Rating

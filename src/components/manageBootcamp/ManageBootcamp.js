@@ -148,7 +148,8 @@ function ManageBootcamp() {
                 setSnackbarState({
                   state: true,
                   type: "success",
-                  message: "Image Uploaded Successfully",
+                  message:
+                    "Image Uploaded Successfully, Wait a while or reload the page to see the changes",
                 });
               } else {
                 setLoading(false);
