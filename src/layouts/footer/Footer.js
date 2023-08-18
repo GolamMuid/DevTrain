@@ -4,10 +4,8 @@ import ModeContext from "../../contexts/ModeContext";
 
 function Footer() {
   const year = new Date().getFullYear();
-  console.log(year);
 
   const mode = useContext(ModeContext);
-  console.log(mode.darkMode);
 
   return (
     <Box

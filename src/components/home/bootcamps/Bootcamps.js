@@ -14,8 +14,6 @@ function Bootcamps() {
     "bootcampsHome"
   );
 
-  console.log(data);
-
   return (
     <Box marginBottom="80px">
       <Container>

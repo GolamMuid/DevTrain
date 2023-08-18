@@ -15,7 +15,6 @@ function UserEdit(props) {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
     setEditLoading(true);
     try {

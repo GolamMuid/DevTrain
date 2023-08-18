@@ -69,7 +69,6 @@ function AddCourse(props) {
           },
         }
       );
-      console.log(response);
       if (response?.data?.success) {
         setLoading(false);
         refetch();
@@ -91,7 +90,6 @@ function AddCourse(props) {
       });
       setLoading(false);
     }
-    console.log(data);
   };
 
   return (

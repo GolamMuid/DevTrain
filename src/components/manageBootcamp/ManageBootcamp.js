@@ -79,8 +79,6 @@ function ManageBootcamp() {
     }
   }, [bootcampData]);
 
-  console.log(bootcampData);
-
   const [editBootcamp, setEditBootcamp] = useState(false);
   const [viewDeleteBootcamp, setViewDeleteBootcamp] = useState(false);
 
@@ -127,7 +125,6 @@ function ManageBootcamp() {
       .then((res) => res.json())
       .then((imgData) => {
         if (imgData.success) {
-          console.log(imgData.data.url);
           // imgUpload(image);
           fetch(
             `https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampData._id}`,

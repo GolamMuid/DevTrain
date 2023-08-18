@@ -27,8 +27,6 @@ function Bootcamps() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(searchTerm);
-
   // const [radiusValue, setRadiusValue] = useState(0);
   // const [zipValue, setZipValue] = useState(0);
   // const [cost, setCost] = useState([0, 20000]);

@@ -68,7 +68,6 @@ function EditCourse({
 
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
 
     try {
       const response = await axios.put(
@@ -80,7 +79,6 @@ function EditCourse({
           },
         }
       );
-      console.log(response);
       if (response?.data?.success) {
         setLoading(false);
         handleClose();

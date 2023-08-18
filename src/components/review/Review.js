@@ -17,7 +17,6 @@ function Review() {
 
   const [loading, setLoading] = useState(false);
   const [reviewed, setReviewed] = useState(false);
-  console.log("🚀 ~ file: Review.js:20 ~ Review ~ reviewed:", reviewed);
   const [review, setReview] = useState({
     title: "",
     text: "",
@@ -48,7 +47,6 @@ function Review() {
   }, [userInfo]);
 
   const handleEdit = async () => {
-    console.log("edit");
     setLoading(true);
     try {
       const response = await axios.put(
@@ -60,7 +58,6 @@ function Review() {
           },
         }
       );
-      console.log(response);
       if (response?.data?.success) {
         setLoading(false);
         navigate(`/bootcamps/${id}`);
@@ -71,7 +68,6 @@ function Review() {
   };
 
   const handlePost = async () => {
-    console.log("post");
     setLoading(true);
     try {
       const response = await axios.post(
@@ -83,7 +79,6 @@ function Review() {
           },
         }
       );
-      console.log(response);
       if (response?.data?.success) {
         setLoading(false);
         navigate(`/bootcamps/${id}`);
@@ -134,7 +129,13 @@ function Review() {
 
         <Rating name="rating" value={review.rating} onChange={handleChange} />
       </Box>
-      <Box display="flex" justifyContent="end" gap="20px" marginTop="40px">
+      <Box
+        className="review-button-container"
+        display="flex"
+        justifyContent="end"
+        gap="20px"
+        marginTop="40px"
+      >
         {loading ? (
           <Button variant="contained">
             <BeatLoader size={13} color="#fff" />

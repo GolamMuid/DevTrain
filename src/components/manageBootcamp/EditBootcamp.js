@@ -59,7 +59,6 @@ function EditBootcamp(props) {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
     setLoading(true);
     try {
@@ -72,7 +71,6 @@ function EditBootcamp(props) {
           },
         }
       );
-      console.log(response);
       if (response?.data?.success) {
         setLoading(false);
         setSnackbarState({
@@ -96,7 +94,6 @@ function EditBootcamp(props) {
         type: "error",
         message: "Something went wrong, try again",
       });
-      console.log(error);
       setLoading(false);
     }
   };

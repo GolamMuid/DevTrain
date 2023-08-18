@@ -50,7 +50,6 @@ function AddBootcamp() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const TOKEN = localStorage.getItem("DevTrain-Token").replace(/['"]+/g, "");
     setLoading(true);
     try {
@@ -63,7 +62,6 @@ function AddBootcamp() {
           },
         }
       );
-      console.log("response", response);
       if (response?.data?.success) {
         setLoading(false);
         navigate("/profile");
@@ -80,7 +78,6 @@ function AddBootcamp() {
       setLoading(false);
       console.log(error);
     }
-    console.log(data);
   };
 
   return (
