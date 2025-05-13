@@ -71,7 +71,7 @@ function EditCourse({
 
     try {
       const response = await axios.put(
-        `https://devtrain.cyclic.app/api/v1/courses/${courseInfo?._id}`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/courses/${courseInfo?._id}`,
         data,
         {
           headers: {

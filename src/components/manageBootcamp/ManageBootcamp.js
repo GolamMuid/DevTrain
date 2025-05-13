@@ -63,7 +63,7 @@ function ManageBootcamp() {
 
   const [bootcampData, isLoading, isError, error, isSuccess, refetch] =
     useFetch(
-      `https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
+      ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${id}`,
       "bootcampSingle"
     );
 
@@ -127,7 +127,7 @@ function ManageBootcamp() {
         if (imgData.success) {
           // imgUpload(image);
           fetch(
-            `https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampData._id}`,
+            ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${bootcampData._id}`,
             {
               method: "PUT",
               headers: {
@@ -168,7 +168,7 @@ function ManageBootcamp() {
   //   console.log(image);
   //   try {
   //     const response = await axios.put(
-  //       `https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampData._id}`,
+  //       ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${bootcampData._id}`,
   //       { photo: image, housing: true },
   //       {
   //         headers: {

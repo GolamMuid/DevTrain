@@ -42,17 +42,17 @@ function Bootcamp() {
   }, [loggedIn]);
 
   const [data, isLoading] = useFetch(
-    `https://devtrain.cyclic.app/api/v1/bootcamps/${id}`,
+    ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${id}`,
     "bootcamps"
   );
 
   const [reviews, reviewLoading] = useFetch(
-    `https://devtrain.cyclic.app/api/v1/bootcamps/${id}/reviews`,
+    ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${id}/reviews`,
     "reviews"
   );
 
   const [courses, courseLoading] = useFetch(
-    `https://devtrain.cyclic.app/api/v1/bootcamps/${id}/courses`,
+    ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${id}/courses`,
     "courses"
   );
 
@@ -67,7 +67,7 @@ function Bootcamp() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://devtrain.cyclic.app/api/v1/auth/me`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/auth/me`,
         {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
@@ -98,7 +98,7 @@ function Bootcamp() {
 
     try {
       await axios.post(
-        `https://devtrain.cyclic.app/api/v1/auth/${userInfo._id}/bootcamps`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/auth/${userInfo._id}/bootcamps`,
         {
           bootcampId: id,
         },

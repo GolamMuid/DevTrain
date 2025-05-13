@@ -21,7 +21,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 function Bootcamps() {
   const [data, isLoading, isError, error, isSuccess, refetch] = useFetch(
-    "https://devtrain.cyclic.app/api/v1/bootcamps",
+    " https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps",
     "bootcampCollection"
   );
 

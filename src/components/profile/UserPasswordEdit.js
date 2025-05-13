@@ -19,7 +19,7 @@ function UserPasswordEdit(props) {
     setEditLoading(true);
     try {
       const response = await axios.put(
-        "https://devtrain.cyclic.app/api/v1/auth/updatepassword",
+        " https://devcamper-api-5zwl.onrender.com/api/v1/auth/updatepassword",
         data,
         {
           headers: {

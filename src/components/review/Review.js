@@ -34,7 +34,7 @@ function Review() {
 
   const [userInfo] = useUserInfo();
   const [reviews] = useFetch(
-    `https://devtrain.cyclic.app/api/v1/bootcamps/${id}/reviews`,
+    ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${id}/reviews`,
     "reviewData"
   );
 
@@ -50,7 +50,7 @@ function Review() {
     setLoading(true);
     try {
       const response = await axios.put(
-        `https://devtrain.cyclic.app/api/v1/reviews/${review._id}`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/reviews/${review._id}`,
         review,
         {
           headers: {
@@ -71,7 +71,7 @@ function Review() {
     setLoading(true);
     try {
       const response = await axios.post(
-        `https://devtrain.cyclic.app/api/v1/bootcamps/${id}/reviews`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${id}/reviews`,
         review,
         {
           headers: {

@@ -10,7 +10,7 @@ function BootcampInfo(userInfo) {
   const userId = userInfo?.userInfo?._id;
 
   const [data, isLoading] = useFetch(
-    "https://devtrain.cyclic.app/api/v1/bootcamps",
+    " https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps",
     "bootcampProfile"
   );
 

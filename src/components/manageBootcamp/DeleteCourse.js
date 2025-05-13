@@ -36,7 +36,7 @@ function DeleteCourse(props) {
     setLoading(true);
     try {
       const response = await axios.delete(
-        `https://devtrain.cyclic.app/api/v1/courses/${course}`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/courses/${course}`,
         {
           headers: {
             Authorization: `Bearer ${TOKEN}`,

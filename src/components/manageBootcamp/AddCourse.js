@@ -61,7 +61,7 @@ function AddCourse(props) {
     setLoading(true);
     try {
       const response = await axios.post(
-        `https://devtrain.cyclic.app/api/v1/bootcamps/${bootcampId}/courses`,
+        ` https://devcamper-api-5zwl.onrender.com/api/v1/bootcamps/${bootcampId}/courses`,
         data,
         {
           headers: {
